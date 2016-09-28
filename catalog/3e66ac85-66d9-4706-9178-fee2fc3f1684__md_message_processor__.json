@@ -1,0 +1,11 @@
+{
+    "inputMessageMetadata": {
+        "messagePayload": {
+            "connectorName": "#_custom_mule_metadata_type_#",
+            "typeId": "BAPI_CUSTOMER_GETDETAIL2"
+        }
+    },
+    "outputMessageMetadata": {},
+    "id": "3e66ac85-66d9-4706-9178-fee2fc3f1684",
+    "version": "5.2.0.0"
+}
