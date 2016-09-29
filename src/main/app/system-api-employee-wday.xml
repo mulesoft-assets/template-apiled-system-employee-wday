@@ -276,6 +276,7 @@ payload.Hire_Employee_Event_Response.Employee_Reference]]></dw:set-payload>
         </dw:transform-message>
 
         <set-property propertyName="location" value="#[ 'http://' + '${api.domain}' + ':' + '${http.port}' + '${api.basePath}' + '/employees/' + payload.ID ]" doc:name="Set Location Header"/>
+        <set-property propertyName="http.status" value="#[201]" doc:name="Set HTTP status"/>
         <dw:transform-message doc:name="Build response">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/json
