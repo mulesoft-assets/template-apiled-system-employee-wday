@@ -139,7 +139,6 @@ payload]]></dw:set-payload>
                 <validation:is-not-null value="#[payload.addressLine]" message="Adress line is required."/>
                 <validation:is-not-null value="#[payload.city]" message="City is required."/>
                 <validation:is-not-null value="#[payload.country]" message="Country is required."/>
-                <validation:is-not-null value="#[payload.region]" message="Region is required."/>
                 <validation:is-not-null value="#[payload.postalCode]" message="Postal code is required."/>
                 <validation:is-not-null value="#[payload.birthDate]" message="Birthdate is required."/>
                 <validation:is-not-null value="#[payload.phone]" message="Phone is required."/>
@@ -181,9 +180,9 @@ payload]]></dw:set-payload>
 							},
 							ns0#Address_Line_Data @(ns0#Type: 'ADDRESS_LINE_1'): payload.addressLine,
 							ns0#Municipality: payload.city,
-							ns0#Country_Region_Reference: {
+							(ns0#Country_Region_Reference: {
 								ns0#ID @(ns0#type: 'Country_Region_ID'): lookup("lookUpCountryRegionFlow", payload.region)
-							},
+							}) when (payload.region != null and payload.region != "Not presented"),
 							ns0#Postal_Code: payload.postalCode,
 							ns0#Usage_Data: {
 								ns0#Type_Data @(ns0#Primary: true): {
@@ -365,7 +364,8 @@ using (	personData = payload.ns0#Employee.ns0#Employee_Data.ns0#Personal_Info_Da
         <json:json-to-object-transformer returnClass="java.util.Map" mimeType="application/java" doc:name="JSON to Object"/>
         <validation:all doc:name="Validate input JSON">
             <validation:validations>
-                <validation:is-true expression="#[(payload.country != null &amp;&amp; payload.postalCode != null &amp;&amp; payload.addressLine != null &amp;&amp; payload.region != null &amp;&amp; payload.city != null) || (payload.country == null &amp;&amp; payload.postalCode == null &amp;&amp; payload.addressLine == null &amp;&amp; payload.region == null &amp;&amp; payload.city == null)]" message="You have to specify the whole adress, which consists of address line, city, country, region and postal code."/>
+                <validation:is-true expression="#[(payload.country != null &amp;&amp; payload.postalCode != null &amp;&amp; payload.addressLine != null &amp;&amp; payload.city != null) || (payload.country == null &amp;&amp; payload.postalCode == null &amp;&amp; payload.addressLine == null &amp;&amp; payload.region == null &amp;&amp; payload.city == null)]" message="You have to specify the whole adress, which consists of address line, city, country, region and postal code."/>
+
             </validation:validations>
         </validation:all>
         <dw:transform-message doc:name="Prepare FindEmployee request">
@@ -416,9 +416,9 @@ otherwise null]]></dw:set-variable>
 					},
 					ns0#Address_Line_Data @(ns0#Type: 'ADDRESS_LINE_1'): flowVars.input.adressLine,
 					ns0#Municipality: flowVars.input.city,
-					ns0#Country_Region_Reference: {
+					(ns0#Country_Region_Reference: {
 						ns0#ID @(ns0#type: 'Country_Region_ID'): lookup("lookUpCountryRegionFlow", flowVars.input.region)
-					},
+					}) when (payload.region != null and payload.region != "Not presented"),
 					ns0#Postal_Code: flowVars.input.postalCode,
 					ns0#Usage_Data: {
 						ns0#Type_Data @(ns0#Primary: true): {
@@ -544,7 +544,8 @@ otherwise null]]></dw:set-payload>
 
 
 <flow doc:description="The script uses data in the state field to add a region to the payload according to location." name="lookUpCountryFlow" processingStrategy="synchronous">
-        <scripting:component doc:name="Get Country in Workday">
+       
+<scripting:component doc:name="Get Country in Workday">
             <scripting:script engine="Groovy"><![CDATA[def country = payload.toUpperCase()
 def countryInWDAY = country
 
@@ -553,8 +554,8 @@ switch (country) {
 	case ["US","USA"]:
       countryInWDAY = "USA"
       break
-      case ["UK"]:
-      countryInWDAY = "UK"
+      case ["UK", "GBR"]:
+      countryInWDAY = "GBR"
       break
 }
 return countryInWDAY]]></scripting:script>
@@ -564,6 +565,7 @@ return countryInWDAY]]></scripting:script>
     </flow>
     
     <flow doc:description="The script uses data in the state field to add a region to the payload according to location." name="lookUpCountryRegionFlow" processingStrategy="synchronous">
+        
         <scripting:component doc:name="Get Country region in Workday">
             <scripting:script engine="Groovy"><![CDATA[def region = payload.toUpperCase()
 def regionInWDAY = region
@@ -572,6 +574,9 @@ println "Country region to lookup is: " + region
 switch (region) {
 	case ["USA-CA"]:
       regionInWDAY = "USA-CA"
+      break
+    case ["ILLINOIS"]:
+      regionInWDAY = "Illinois"
       break
 }
 return regionInWDAY]]></scripting:script>
