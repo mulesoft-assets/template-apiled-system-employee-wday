@@ -29,7 +29,7 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
     
     <wd-connector:config name="Workday__Basic" username="${wday.user}" password="${wday.password}" tenantName="${wday.tenant}" hostName="${wday.hostname}" doc:name="Workday: Basic" testConnectivtyService="Human_Resources"/>
         
-    <apikit:config name="system-api-config" raml="system-api.raml" consoleEnabled="true" consolePath="console" doc:name="Router"/>
+    <apikit:config name="system-api-config" raml="system-api.raml" consoleEnabled="true" consolePath="/console" doc:name="Router"/>
     
     <flow name="system-api-main">
         <http:listener config-ref="system-api-httpListenerConfig" path="/api/*" doc:name="HTTP"/>
@@ -38,6 +38,10 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
     </flow>
 
    
+    <flow name="api-console">
+        <http:listener config-ref="system-api-httpListenerConfig" path="/console" doc:name="Console"/>
+        <apikit:console config-ref="system-api-config" doc:name="APIkit Console"/>
+    </flow>
     
     <flow name="get:/employees:system-api-config">
         <set-variable variableName="queryParams" value="#[message.inboundProperties[&quot;http.query.params&quot;]]" doc:name="Save queryParams"/>
@@ -83,7 +87,7 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
 }
 
 %function getCountryRegionName(id){
-	name: "USA-CA" when (id == "ec3d210e4240442e99a28fa70419aec5") otherwise "Not presented"
+	name: "California" when (id == "ec3d210e4240442e99a28fa70419aec5") otherwise "Not presented"
 }
 ---
 payload.Get_Workers_Response.Response_Data.*Worker map {
@@ -220,7 +224,7 @@ payload]]></dw:set-payload>
 				}
 			},
 			ns0#Organization_Reference: {
-				ns0#ID @(ns0#type: 'Organization_Reference_ID'): "50006855"
+				ns0#ID @(ns0#type: 'Organization_Reference_ID'): p("wday.organization.reference.id")
 			},
 			ns0#Hire_Date: now as :date,
 			ns0#Hire_Employee_Event_Data: {
@@ -229,11 +233,11 @@ payload]]></dw:set-payload>
 				},
 				ns0#Position_Details: {
 					ns0#Job_Profile_Reference: {
-						ns0#ID @(ns0#type: 'Job_Profile_ID'): "39905"
+						ns0#ID @(ns0#type: 'Job_Profile_ID'): p("wday.job.profile.reference.id")
 					},
 					ns0#Position_Title: payload.positionTitle,
 					ns0#Location_Reference: {
-						ns0#ID @(ns0#type: 'Location_ID'): "LOCATION-6-191"
+						ns0#ID @(ns0#type: 'Location_ID'): p("wday.position.location.reference.id")
 					},
 					ns0#Position_Time_Type_Reference: {
 						ns0#ID @(ns0#type: 'Position_Time_Type_ID'): 'Full_time'
@@ -361,7 +365,7 @@ using (	personData = payload.ns0#Employee.ns0#Employee_Data.ns0#Personal_Info_Da
 
 
     </flow>
-    <flow name="put:/employees/{id}:application/json:system-api-config">
+    <flow name="patch:/employees/{id}:application/json:system-api-config">
         <json:json-to-object-transformer returnClass="java.util.Map" mimeType="application/java" doc:name="JSON to Object"/>
         <validation:all doc:name="Validate input JSON">
             <validation:validations>
@@ -515,7 +519,7 @@ otherwise null]]></dw:set-payload>
 			ns0#Termination_Date: now as :date,
 			ns0#Terminate_Event_Data: {
 				ns0#Primary_Reason_Reference: {
-					ns0#ID @(ns0#type: 'WID'): "208082cd6b66443e801d95ffdc77461b"
+					ns0#ID @(ns0#type: 'WID'): p("wday.terminate.employee.primary.reason.id")
 				}
 			}
 		}
@@ -545,43 +549,31 @@ otherwise null]]></dw:set-payload>
 
 
 <flow doc:description="The script uses data in the state field to add a region to the payload according to location." name="lookUpCountryFlow" processingStrategy="synchronous">
-       
-<scripting:component doc:name="Get Country in Workday">
-            <scripting:script engine="Groovy"><![CDATA[def country = payload.toUpperCase()
-def countryInWDAY = country
+        <dw:transform-message doc:name="Get Country in Workday">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+using (country = upper payload)
+	("USA" when (country == "US" or country == "USA") otherwise
+	("GBR" when (country == "UK" or country == "GBR") otherwise payload))
+]]></dw:set-payload>
+        </dw:transform-message>
 
-println "Country to lookup is: " + country
-switch (country) {
-	case ["US","USA"]:
-      countryInWDAY = "USA"
-      break
-      case ["UK", "GBR"]:
-      countryInWDAY = "GBR"
-      break
-}
-return countryInWDAY]]></scripting:script>
-        </scripting:component>
 
         <logger doc:name="Log the Country in Workday" level="INFO" message="Country is : #[payload]"/>
     </flow>
     
     <flow doc:description="The script uses data in the state field to add a region to the payload according to location." name="lookUpCountryRegionFlow" processingStrategy="synchronous">
-        
-        <scripting:component doc:name="Get Country region in Workday">
-            <scripting:script engine="Groovy"><![CDATA[def region = payload.toUpperCase()
-def regionInWDAY = region
+        <dw:transform-message doc:name="Get Country region in Workday">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+using (countryRegion = upper payload)
+	("USA-CA" when (countryRegion == "USA-CA") otherwise
+	("Illinois" when (countryRegion == "ILLINOIS") otherwise payload))
+]]></dw:set-payload>
+        </dw:transform-message>
 
-println "Country region to lookup is: " + region
-switch (region) {
-	case ["USA-CA"]:
-      regionInWDAY = "USA-CA"
-      break
-    case ["ILLINOIS"]:
-      regionInWDAY = "Illinois"
-      break
-}
-return regionInWDAY]]></scripting:script>
-        </scripting:component>
         <logger doc:name="Log the Country region in Workday" level="INFO" message="Country region is : #[payload]"/>
     </flow>
 
