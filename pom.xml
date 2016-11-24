@@ -10,13 +10,12 @@
 
 	<properties>
 		<skip.readme.generation>true</skip.readme.generation>
-		<mule.version>3.8.1</mule.version>
 	</properties>
 
 	<parent>
 		<groupId>org.mule.templates</groupId>
 		<artifactId>templates-tooling-parent-pom</artifactId>
-		<version>1.3.2</version>
+		<version>1.3.7</version>
 	</parent>
 
 	<scm>
@@ -25,7 +24,6 @@
 		<url>https://github.com/mulesoft/template-apiled-system-employee-wday</url>
 		<tag>HEAD</tag>
 	</scm>
-
 
 	<build>
 		<plugins>
@@ -130,11 +128,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.mulesoft.muleesb.transports</groupId>
-			<artifactId>mule-transport-sap</artifactId>
-			<version>${sap.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
 			<version>3.3.2</version>
@@ -142,7 +135,7 @@
 	<dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>workday-connector</artifactId>
-            <version>8.0.0</version>
+            <version>8.1.0</version>
         </dependency>
     <dependency>
             <groupId>com.mulesoft.weave</groupId>
@@ -155,7 +148,7 @@
             <artifactId>cglib</artifactId>
             <version>3.2.2</version>
             <scope>provided</scope>
-        </dependency>
+    </dependency>
     <dependency>
             <groupId>org.mule.modules</groupId>
             <artifactId>mule-module-validation</artifactId>
@@ -187,5 +180,4 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
-
 </project>
