@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:tcp="http://www.mulesoft.org/schema/mule/tcp" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata"
+	xmlns:synchronize="http://www.mulesoft.org/schema/mule/synchronize"
+	xmlns:scripting="http://www.mulesoft.org/schema/mule/scripting"
+	xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:mock="http://www.mulesoft.org/schema/mule/mock"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:spring="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-current.xsd
+http://www.mulesoft.org/schema/mule/scripting http://www.mulesoft.org/schema/mule/scripting/current/mule-scripting.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+http://www.mulesoft.org/schema/mule/mock http://www.mulesoft.org/schema/mule/mock/current/mule-mock.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/synchronize http://www.mulesoft.org/schema/mule/synchronize/current/mule-synchronize.xsd
+http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/current/mule-tcp.xsd">
+
+	<munit:config mock-connectors="false" mock-inbounds="false" doc:name="MUnit configuration"/>
+
+	<context:property-placeholder location="mule.test.properties" />
+	
+	<spring:beans>
+		<spring:import resource="classpath:system-api-employee-wday.xml" />
+	</spring:beans>
+	
+    <http:request-config name="HTTP_Request_Configuration" host="0.0.0.0" port="9090" basePath="/api" doc:name="HTTP Request Configuration" >
+        <http:raml-api-configuration location="system-api.raml"/>
+    </http:request-config>
+
+	<munit:test name="system-api-test-get:/employees:system-api-configTest"
+		description="Test">
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Get Workers from Workday">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Get Workers from Workday']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[getResource('testData/employees.xml').asString()]" encoding="UTF-8" mimeType="application/xml"/>
+        </mock:when>
+        <flow-ref name="get:/employees:system-api-config" doc:name="get:/employees:system-api-config"/>
+        <set-variable variableName="expectedResponse" value="#[getResource('testData/employeesResponse.json').asString()]" encoding="UTF-8" mimeType="application/json" doc:name="set expectedResponse variable"/>
+        <munit:assert-on-equals message="First name of response is not equal to expected" expectedValue="#[dw('flowVars.expectedResponse')[0].firstName]" actualValue="#[dw('payload')[0].firstName]" doc:name="Assert Equals"/>
+	</munit:test>
+	<munit:test
+		name="system-api-test-post:/employees:application/json:system-api-configTest"
+		description="Test">
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Hire Employee in Workday">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Get Workers from Workday']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[]"/>
+        </mock:when>
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Get Id from Hire Employee response">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Get Id from Hire Employee response']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="33333"/>
+        </mock:when>
+        <set-payload value="#[getResource('testData/newEmployee.json').asString()]" doc:name="Set Payload"/>
+		<flow-ref name="post:/employees:application/json:system-api-config"
+			doc:name="post:/employees:application/json:system-api-config" />
+	</munit:test>
+	<munit:test name="system-api-test-get:/employees/{id}:system-api-configTest"
+		description="Test">
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Save id">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Save id']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[]"/>
+        </mock:when>
+        <set-variable variableName="exampleResponse" value="#[getResource('testData/employeesResponse.json').asString()]" encoding="UTF-8" mimeType="application/json" doc:name="set exampleResponse variable"/>
+        <set-variable variableName="id" value="#[dw('flowVars.exampleResponse')[0].id]" doc:name="set id variable (mock from uri params)"/>
+        <flow-ref name="get:/employees/{id}:system-api-config" doc:name="get:/employees/{id}:system-api-config"/>
+        <munit:assert-on-equals message="First name of response is not equal to expected" expectedValue="#[dw('flowVars.exampleResponse')[0].firstName]" actualValue="#[dw('payload')[0].firstName]" doc:name="Assert Equals"/>
+	</munit:test>
+	<munit:test
+		name="system-api-test-patch:/employees/{id}:application/json:system-api-configTest"
+		description="Test">
+		<flow-ref name="patch:/employees/{id}:application/json:system-api-config"
+			doc:name="patch:/employees/{id}:application/json:system-api-config" />
+	</munit:test>
+	<munit:test
+		name="system-api-test-delete:/employees/{id}:system-api-configTest"
+		description="Test">
+		<flow-ref name="delete:/employees/{id}:system-api-config"
+			doc:name="delete:/employees/{id}:system-api-config" />
+	</munit:test>
+	<munit:test name="system-api-test-lookUpCountryFlowTest"
+		description="Test">
+        <set-payload value="US" doc:name="Set payload to &quot;US&quot;"/>
+		<flow-ref name="lookUpCountryFlow" doc:name="lookUpCountryFlow" />
+        <munit:assert-on-equals expectedValue="USA" actualValue="#[payload]" doc:name="Assert Equals (Expected: &quot;USA&quot;)" message="Country name is not equal to expected"/>
+	</munit:test>
+	<munit:test name="system-api-test-lookUpCountryRegionFlowTest"
+		description="Test">
+        <set-payload value="ILLINOIS" doc:name="Set payload to &quot;ILLINOIS&quot;"/>
+		<flow-ref name="lookUpCountryRegionFlow" doc:name="lookUpCountryRegionFlow" />
+        <munit:assert-on-equals message="Country region name is not equal to expected" expectedValue="Illinois" actualValue="#[payload]" doc:name="Assert Equals (Expected: &quot;Illinois&quot;)"/>
+	</munit:test>
+</mule>
