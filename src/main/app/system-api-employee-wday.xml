@@ -115,7 +115,7 @@ fields.put("lastName", "lastName");
 fields.put("hireDate", "hireDate");
 
 // ordering
-if (!payload.isEmpty() && flowVars.queryParams.orderBy != null) {
+if (!payload.isEmpty() && flowVars.queryParams != null && flowVars.queryParams.orderBy != null) {
 	dwScript = "(payload orderBy  $." + fields.get(flowVars.queryParams.orderBy) + ")";
 	if (flowVars.queryParams.order != null && flowVars.queryParams.order.equalsIgnoreCase("desc") ) {
 		dwScript += "[-1..0]";
