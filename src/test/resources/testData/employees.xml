@@ -1,0 +1,1708 @@
+<wd:Get_Workers_Response xmlns:wd="urn:com.workday/bsvc" wd:version="v27.0">
+
+	<wd:Request_Criteria>
+		<wd:Exclude_Inactive_Workers>1</wd:Exclude_Inactive_Workers>
+		<wd:Exclude_Employees>0</wd:Exclude_Employees>
+		<wd:Exclude_Contingent_Workers>0</wd:Exclude_Contingent_Workers>
+	</wd:Request_Criteria>
+	<wd:Response_Filter>
+		<wd:Page>1</wd:Page>
+		<wd:Count>20</wd:Count>
+	</wd:Response_Filter>
+	<wd:Response_Group>
+		<wd:Include_Personal_Information>1</wd:Include_Personal_Information>
+		<wd:Include_Employment_Information>1
+		</wd:Include_Employment_Information>
+		<wd:Include_Compensation>1</wd:Include_Compensation>
+	</wd:Response_Group>
+	<wd:Response_Results>
+		<wd:Total_Results>18</wd:Total_Results>
+		<wd:Total_Pages>94</wd:Total_Pages>
+		<wd:Page_Results>20</wd:Page_Results>
+		<wd:Page>1</wd:Page>
+	</wd:Response_Results>
+	<wd:Response_Data>
+		<wd:Worker>
+			<wd:Worker_Data>
+				<wd:Worker_ID>21001</wd:Worker_ID>
+				<wd:User_ID>lDoe</wd:User_ID>
+				<wd:Personal_Data>
+					<wd:Name_Data>
+						<wd:Legal_Name_Data>
+							<wd:Name_Detail_Data wd:Formatted_Name="John Doe"
+								wd:Reporting_Name="Doe, John">
+								<wd:Country_Reference wd:Descriptor="United States of America">
+									<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+								</wd:Country_Reference>
+								<wd:First_Name>John</wd:First_Name>
+								<wd:Last_Name>Doe</wd:Last_Name>
+							</wd:Name_Detail_Data>
+						</wd:Legal_Name_Data>
+						<wd:Preferred_Name_Data>
+							<wd:Name_Detail_Data wd:Formatted_Name="John Doe"
+								wd:Reporting_Name="Doe, John">
+								<wd:Country_Reference wd:Descriptor="United States of America">
+									<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+								</wd:Country_Reference>
+								<wd:First_Name>John</wd:First_Name>
+								<wd:Last_Name>Doe</wd:Last_Name>
+							</wd:Name_Detail_Data>
+						</wd:Preferred_Name_Data>
+					</wd:Name_Data>
+					<wd:Gender_Reference wd:Descriptor="Female">
+						<wd:ID wd:type="WID">9cce3bec2d0d420283f76f51b928d885</wd:ID>
+						<wd:ID wd:type="Gender_Code">Female</wd:ID>
+					</wd:Gender_Reference>
+					<wd:Birth_Date>1972-05-25-07:00</wd:Birth_Date>
+					<wd:Marital_Status_Reference
+						wd:Descriptor="Married (United States of America)">
+						<wd:ID wd:type="WID">817d5a302dea4eb29a603ab2b47bb4ed</wd:ID>
+						<wd:ID wd:type="Marital_Status_ID">Married_USA</wd:ID>
+					</wd:Marital_Status_Reference>
+					<wd:Ethnicity_Reference wd:Descriptor="White (United States of America)">
+						<wd:ID wd:type="WID">ea1036b7dc884ec78a4587bb94e5a130</wd:ID>
+						<wd:ID wd:type="Ethnicity_ID">White</wd:ID>
+					</wd:Ethnicity_Reference>
+					<wd:Hispanic_or_Latino>0</wd:Hispanic_or_Latino>
+					<wd:Citizenship_Status_Reference
+						wd:Descriptor="Citizen (United States of America)">
+						<wd:ID wd:type="WID">2ec46eb7edcc4d5aa97af54147204e0e</wd:ID>
+						<wd:ID wd:type="Citizenship_Status_Code">USA_Citizen</wd:ID>
+					</wd:Citizenship_Status_Reference>
+					<wd:Identification_Data>
+						<wd:National_ID>
+							<wd:National_ID_Reference wd:Descriptor="545-21-2822 (USA-SSN)">
+								<wd:ID wd:type="WID">0eec3f517ccc4ec2adba6e2a5a8465c7</wd:ID>
+							</wd:National_ID_Reference>
+							<wd:National_ID_Data>
+								<wd:ID>545212822</wd:ID>
+								<wd:ID_Type_Reference wd:Descriptor="Social Security Number (SSN)">
+									<wd:ID wd:type="WID">93636994cfe84825a1dxxx933cbba7e7</wd:ID>
+									<wd:ID wd:type="National_ID_Type_Code">USA-SSN</wd:ID>
+								</wd:ID_Type_Reference>
+								<wd:Country_Reference wd:Descriptor="United States of America">
+									<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+								</wd:Country_Reference>
+								<wd:Issued_Date>1972-01-01-08:00</wd:Issued_Date>
+								<wd:Verified_By_Reference
+									wd:Descriptor="John Doe (21001)">
+									<wd:ID wd:type="WID">3aa5550b7fe348b98d7b5741afc65534</wd:ID>
+									<wd:ID wd:type="Employee_ID">21001</wd:ID>
+								</wd:Verified_By_Reference>
+							</wd:National_ID_Data>
+							<wd:National_ID_Shared_Reference
+								wd:Descriptor="NATIONAL_IDENTIFIER_REFERENCE-1-7">
+								<wd:ID wd:type="WID">356b661703a94a608ddda24870ead0d5</wd:ID>
+								<wd:ID wd:type="National_Identifier_Reference_ID">NATIONAL_IDENTIFIER_REFERENCE-1-7</wd:ID>
+							</wd:National_ID_Shared_Reference>
+						</wd:National_ID>
+						<wd:Passport_ID>
+							<wd:Passport_ID_Reference
+								wd:Descriptor="John Doe: Passport Identifier/Standard/039845814">
+								<wd:ID wd:type="WID">8fd55f53ddeb4f66bd9679b982247f93</wd:ID>
+							</wd:Passport_ID_Reference>
+							<wd:Passport_ID_Data>
+								<wd:ID>039845814</wd:ID>
+								<wd:ID_Type_Reference wd:Descriptor="Standard">
+									<wd:ID wd:type="WID">fb9cbb1718ad40d1b34deaeddc1fd3f9</wd:ID>
+									<wd:ID wd:type="Passport_ID_Type_ID">STANDARD</wd:ID>
+								</wd:ID_Type_Reference>
+								<wd:Country_Reference wd:Descriptor="United States of America">
+									<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+								</wd:Country_Reference>
+								<wd:Issued_Date>1999-01-18-08:00</wd:Issued_Date>
+								<wd:Expiration_Date>2009-01-18-08:00</wd:Expiration_Date>
+								<wd:Verification_Date>2000-01-01-08:00</wd:Verification_Date>
+								<wd:Verified_By_Reference
+									wd:Descriptor="John Doe (21001)">
+									<wd:ID wd:type="WID">3aa5550b7fe348b98d7b5741afc65534</wd:ID>
+									<wd:ID wd:type="Employee_ID">21001</wd:ID>
+								</wd:Verified_By_Reference>
+							</wd:Passport_ID_Data>
+							<wd:Passport_ID_Shared_Reference
+								wd:Descriptor="PASSPORT_IDENTIFIER_REFERENCE-1-11">
+								<wd:ID wd:type="WID">d6c464a29bd4438e9397d28941ba7fef</wd:ID>
+								<wd:ID wd:type="Passport_Identifier_Reference_ID">PASSPORT_IDENTIFIER_REFERENCE-1-11</wd:ID>
+							</wd:Passport_ID_Shared_Reference>
+						</wd:Passport_ID>
+						<wd:License_ID>
+							<wd:License_ID_Reference
+								wd:Descriptor="John Doe: License Identifier/Driver's/C148105815">
+								<wd:ID wd:type="WID">48da6362cbcf4f9f9561ebb7182b0c67</wd:ID>
+								<wd:ID wd:type="License_Identifier_ID">464.11</wd:ID>
+							</wd:License_ID_Reference>
+							<wd:License_ID_Data>
+								<wd:ID>C148105815</wd:ID>
+								<wd:ID_Type_Reference wd:Descriptor="Driver's">
+									<wd:ID wd:type="WID">a9e0c180b6da47938d75abf08b06a7db</wd:ID>
+									<wd:ID wd:type="License_ID_Type_ID">469.1</wd:ID>
+								</wd:ID_Type_Reference>
+								<wd:Authority_Reference
+									wd:Descriptor="California Department of Motor Vehicles">
+									<wd:ID wd:type="WID">9321d8c0c4c14738859e29f148e309c4</wd:ID>
+									<wd:ID wd:type="Authority_ID">215.4</wd:ID>
+								</wd:Authority_Reference>
+								<wd:Issued_Date>2004-05-18-07:00</wd:Issued_Date>
+								<wd:Expiration_Date>2009-05-18-07:00</wd:Expiration_Date>
+								<wd:Verification_Date>2005-01-01-08:00</wd:Verification_Date>
+								<wd:Verified_By_Reference
+									wd:Descriptor="John Doe (21001)">
+									<wd:ID wd:type="WID">3aa5550b7fe348b98d7b5741afc65534</wd:ID>
+									<wd:ID wd:type="Employee_ID">21001</wd:ID>
+								</wd:Verified_By_Reference>
+							</wd:License_ID_Data>
+							<wd:License_ID_Shared_Reference
+								wd:Descriptor="LICENSE_IDENTIFIER_REFERENCE-1-11">
+								<wd:ID wd:type="WID">ee657607598049d0a1cea3b7ebf596af</wd:ID>
+								<wd:ID wd:type="License_Identifier_Reference_ID">LICENSE_IDENTIFIER_REFERENCE-1-11</wd:ID>
+							</wd:License_ID_Shared_Reference>
+						</wd:License_ID>
+					</wd:Identification_Data>
+					<wd:Contact_Data>
+						<wd:Address_Data wd:Effective_Date="2000-01-01-08:00"
+							wd:Address_Format_Type="Basic"
+							wd:Formatted_Address="3939 The City&amp;#xa;San Francisco, CA 94111&amp;#xa;United States of America"
+							wd:Defaulted_Business_Site_Address="1">
+							<wd:Country_Reference wd:Descriptor="United States of America">
+								<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+							</wd:Country_Reference>
+							<wd:Last_Modified>2011-06-20T13:54:02.023-07:00
+							</wd:Last_Modified>
+							<wd:Address_Line_Data wd:Type="ADDRESS_LINE_1"
+								wd:Descriptor="Address Line 1">3939 The City</wd:Address_Line_Data>
+							<wd:Municipality>San Francisco</wd:Municipality>
+							<wd:Country_Region_Reference
+								wd:Descriptor="California">
+								<wd:ID wd:type="WID">ec3d210e4240442e99a28fa70419aec5</wd:ID>
+								<wd:ID wd:type="Country_Region_ID">USA-CA</wd:ID>
+							</wd:Country_Region_Reference>
+							<wd:Country_Region_Descriptor>California
+							</wd:Country_Region_Descriptor>
+							<wd:Postal_Code>94111</wd:Postal_Code>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Work">
+										<wd:ID wd:type="WID">1f27f250dfaa4724ab1e1617174281e4</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">WORK</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+							<wd:Address_Reference wd:Descriptor="ADDRESS_REFERENCE-4-640">
+								<wd:ID wd:type="WID">db39b882ec495daed85c9f94876283</wd:ID>
+								<wd:ID wd:type="Address_ID">ADDRESS_REFERENCE-4-640</wd:ID>
+							</wd:Address_Reference>
+						</wd:Address_Data>
+						<wd:Address_Data wd:Effective_Date="2015-11-18-08:00"
+							wd:Address_Format_Type="Basic"
+							wd:Formatted_Address="45 Laurel Street&amp;#xa;San Francisco, CA 94118&amp;#xa;United States of America"
+							wd:Defaulted_Business_Site_Address="0">
+							<wd:Country_Reference wd:Descriptor="United States of America">
+								<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+							</wd:Country_Reference>
+							<wd:Last_Modified>2015-11-18T08:15:02.169-08:00
+							</wd:Last_Modified>
+							<wd:Address_Line_Data wd:Type="ADDRESS_LINE_1"
+								wd:Descriptor="Address Line 1">45 Laurel Street</wd:Address_Line_Data>
+							<wd:Municipality>San Francisco</wd:Municipality>
+							<wd:Country_Region_Reference
+								wd:Descriptor="California">
+								<wd:ID wd:type="WID">ec3d210e4240442e99a28fa70419aec5</wd:ID>
+								<wd:ID wd:type="Country_Region_ID">USA-CA</wd:ID>
+							</wd:Country_Region_Reference>
+							<wd:Country_Region_Descriptor>California
+							</wd:Country_Region_Descriptor>
+							<wd:Postal_Code>94118</wd:Postal_Code>
+							<wd:Usage_Data wd:Public="0">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+							<wd:Address_Reference wd:Descriptor="ADDRESS_REFERENCE-4-1">
+								<wd:ID wd:type="WID">91d468fd9c3b465f86ed1362f06b3c5b</wd:ID>
+								<wd:ID wd:type="Address_ID">ADDRESS_REFERENCE-4-1</wd:ID>
+							</wd:Address_Reference>
+						</wd:Address_Data>
+						<wd:Phone_Data wd:Formatted_Phone="+1 (415) 444-8262">
+							<wd:Country_ISO_Code>USA</wd:Country_ISO_Code>
+							<wd:International_Phone_Code>1</wd:International_Phone_Code>
+							<wd:Area_Code>415</wd:Area_Code>
+							<wd:Phone_Number>444-8262</wd:Phone_Number>
+							<wd:Phone_Device_Type_Reference
+								wd:Descriptor="Telephone">
+								<wd:ID wd:type="WID">3014da0ed66f41a3b88085b19175300e</wd:ID>
+								<wd:ID wd:type="Phone_Device_Type_ID">1063.5</wd:ID>
+							</wd:Phone_Device_Type_Reference>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="0">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Phone_Data>
+						<wd:Phone_Data wd:Formatted_Phone="+1 (415) 333-33">
+							<wd:Country_ISO_Code>USA</wd:Country_ISO_Code>
+							<wd:International_Phone_Code>1</wd:International_Phone_Code>
+							<wd:Area_Code>415</wd:Area_Code>
+							<wd:Phone_Number>333-33</wd:Phone_Number>
+							<wd:Phone_Device_Type_Reference
+								wd:Descriptor="Mobile">
+								<wd:ID wd:type="WID">d691375437c848aea9d5b0874353bfd7</wd:ID>
+								<wd:ID wd:type="Phone_Device_Type_ID">1063.1</wd:ID>
+							</wd:Phone_Device_Type_Reference>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Work">
+										<wd:ID wd:type="WID">1f27f250dfaa4724ab1e1617174281e4</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">WORK</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Phone_Data>
+						<wd:Phone_Data wd:Formatted_Phone="+1 (415) 441- x003">
+							<wd:Country_ISO_Code>USA</wd:Country_ISO_Code>
+							<wd:International_Phone_Code>1</wd:International_Phone_Code>
+							<wd:Area_Code>415</wd:Area_Code>
+							<wd:Phone_Number>441-</wd:Phone_Number>
+							<wd:Phone_Extension>003</wd:Phone_Extension>
+							<wd:Phone_Device_Type_Reference
+								wd:Descriptor="Telephone">
+								<wd:ID wd:type="WID">3014da0ed66f41a3b88085b19175300e</wd:ID>
+								<wd:ID wd:type="Phone_Device_Type_ID">1063.5</wd:ID>
+							</wd:Phone_Device_Type_Reference>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Phone_Data>
+						<wd:Email_Address_Data>
+							<wd:Email_Address>test.test@test.test
+							</wd:Email_Address>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Work">
+										<wd:ID wd:type="WID">1f27f250dfaa4724ab1e1617174281e4</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">WORK</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Email_Address_Data>
+						<wd:Email_Address_Data>
+							<wd:Email_Address>test.test@test.test</wd:Email_Address>
+							<wd:Usage_Data wd:Public="0">
+								<wd:Type_Data wd:Primary="0">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Email_Address_Data>
+						<wd:Instant_Messenger_Data>
+							<wd:Instant_Messenger_Address>lDoe
+							</wd:Instant_Messenger_Address>
+							<wd:Instant_Messenger_Type_Reference
+								wd:Descriptor="AIM">
+								<wd:ID wd:type="WID">8cdd85db9d174b2685ffbe4d6e02ac99</wd:ID>
+								<wd:ID wd:type="Instant_Messenger_Type_ID">248.5</wd:ID>
+							</wd:Instant_Messenger_Type_Reference>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Instant_Messenger_Data>
+					</wd:Contact_Data>
+					<wd:Tobacco_Use>0</wd:Tobacco_Use>
+				</wd:Personal_Data>
+				<wd:Employment_Data>
+					<wd:Worker_Job_Data wd:Primary_Job="1">
+						<wd:Position_Data wd:Effective_Date="2014-02-27-08:00">
+							<wd:Position_Reference
+								wd:Descriptor="Chief Human Resources Officer - John Doe (21001)">
+								<wd:ID wd:type="WID">abc35653991e40ab8429db0ba259a125</wd:ID>
+								<wd:ID wd:type="Position_ID">P-00004</wd:ID>
+							</wd:Position_Reference>
+							<wd:Position_ID>P-00004</wd:Position_ID>
+							<wd:Position_Title>Chief Human Resources Officer
+							</wd:Position_Title>
+							<wd:Business_Title>Chief Human Resources Officer
+							</wd:Business_Title>
+							<wd:Start_Date>2000-01-01-08:00</wd:Start_Date>
+							<wd:Worker_Type_Reference wd:Descriptor="Regular">
+								<wd:ID wd:type="WID">9459f5e6f1084433b767c7901ec04416</wd:ID>
+								<wd:ID wd:type="Employee_Type_ID">Regular</wd:ID>
+							</wd:Worker_Type_Reference>
+							<wd:Position_Time_Type_Reference
+								wd:Descriptor="Full time">
+								<wd:ID wd:type="WID">900fa8d9ae6f45a0a788545a85878f40</wd:ID>
+								<wd:ID wd:type="Position_Time_Type_ID">Full_time</wd:ID>
+							</wd:Position_Time_Type_Reference>
+							<wd:Job_Exempt>1</wd:Job_Exempt>
+							<wd:Scheduled_Weekly_Hours>40</wd:Scheduled_Weekly_Hours>
+							<wd:Default_Weekly_Hours>40</wd:Default_Weekly_Hours>
+							<wd:Working_Time_Value>0</wd:Working_Time_Value>
+							<wd:Full_Time_Equivalent_Percentage>100
+							</wd:Full_Time_Equivalent_Percentage>
+							<wd:Exclude_from_Headcount>0</wd:Exclude_from_Headcount>
+							<wd:Pay_Rate_Type_Reference
+								wd:Descriptor="Salaried">
+								<wd:ID wd:type="WID">bbecf03d42c34e34a6e084b2d271b88b</wd:ID>
+								<wd:ID wd:type="Pay_Rate_Type_ID">Salary</wd:ID>
+							</wd:Pay_Rate_Type_Reference>
+							<wd:Job_Classification_Summary_Data>
+								<wd:Job_Classification_Reference
+									wd:Descriptor="1.1 - Executive/Senior Level Officials and Managers (United States EEO-1-United States of America)">
+									<wd:ID wd:type="WID">94e5ed099d114af78590d0425b53bc81</wd:ID>
+									<wd:ID wd:type="Job_Classification_Reference_ID">221.1</wd:ID>
+								</wd:Job_Classification_Reference>
+								<wd:Job_Group_Reference wd:Descriptor="United States EEO-1">
+									<wd:ID wd:type="WID">be4f171eca7a484983b9bc530a22e594</wd:ID>
+								</wd:Job_Group_Reference>
+							</wd:Job_Classification_Summary_Data>
+							<wd:Company_Insider_Reference
+								wd:Descriptor="United States - SEC Section 16 - Officer Insider">
+								<wd:ID wd:type="WID">9328727c54bd42458ff7f04b3cc67891</wd:ID>
+								<wd:ID wd:type="Company_Insider_Type_ID">2136.2</wd:ID>
+							</wd:Company_Insider_Reference>
+							<wd:Federal_Withholding_FEIN>99-0343105
+							</wd:Federal_Withholding_FEIN>
+							<wd:Worker_Compensation_Code_Data>
+								<wd:Workers_Compensation_Code_Reference
+									wd:Descriptor="8810 - Clerical Office Employees (United States of America)">
+									<wd:ID wd:type="WID">b3d930f0fc714b00aa1442a23060ad89</wd:ID>
+									<wd:ID wd:type="Workers_Compensation_ID">8810</wd:ID>
+								</wd:Workers_Compensation_Code_Reference>
+								<wd:Workers_Compensation_Code>8810
+								</wd:Workers_Compensation_Code>
+							</wd:Worker_Compensation_Code_Data>
+							<wd:Job_Profile_Summary_Data>
+								<wd:Job_Profile_Reference
+									wd:Descriptor="Chief Human Resources Officer">
+									<wd:ID wd:type="WID">fd72fab7db654fa3adbbe83ca23c43cb</wd:ID>
+									<wd:ID wd:type="Job_Profile_ID">23000</wd:ID>
+								</wd:Job_Profile_Reference>
+								<wd:Job_Exempt>1</wd:Job_Exempt>
+								<wd:Management_Level_Reference
+									wd:Descriptor="4 Vice President">
+									<wd:ID wd:type="WID">679d4d1ac6da40e19deb7d91e170431d</wd:ID>
+									<wd:ID wd:type="Management_Level_ID">4_Vice_President</wd:ID>
+								</wd:Management_Level_Reference>
+								<wd:Job_Family_Reference wd:Descriptor="Executive Management">
+									<wd:ID wd:type="WID">5f41e62057c944d3a8e60438a2465ca4</wd:ID>
+									<wd:ID wd:type="Job_Family_ID">Executive Management</wd:ID>
+								</wd:Job_Family_Reference>
+								<wd:Job_Profile_Name>Chief Human Resources Officer
+								</wd:Job_Profile_Name>
+								<wd:Work_Shift_Required>0</wd:Work_Shift_Required>
+								<wd:Critical_Job>1</wd:Critical_Job>
+								<wd:Difficulty_to_Fill_Reference
+									wd:Descriptor="Difficult">
+									<wd:ID wd:type="WID">eefc3adabac645c283d96f273f7df5cf</wd:ID>
+									<wd:ID wd:type="Difficulty_to_Fill_Code">DIFFICULT</wd:ID>
+								</wd:Difficulty_to_Fill_Reference>
+							</wd:Job_Profile_Summary_Data>
+							<wd:Business_Site_Summary_Data>
+								<wd:Location_Reference wd:Descriptor="San Francisco">
+									<wd:ID wd:type="WID">d13a7c46a06443c4a33c09afbdf72c73</wd:ID>
+									<wd:ID wd:type="Location_ID">San_Francisco_site</wd:ID>
+								</wd:Location_Reference>
+								<wd:Name>San Francisco</wd:Name>
+								<wd:Location_Type_Reference
+									wd:Descriptor="Headquarters">
+									<wd:ID wd:type="WID">875dcdb9d640404795024f29691ed82b</wd:ID>
+									<wd:ID wd:type="Location_Type_ID">334.4</wd:ID>
+								</wd:Location_Type_Reference>
+								<wd:Local_Reference wd:Descriptor="English (United States) - en_US">
+									<wd:ID wd:type="WID">d9e43b02446c11de98360015c5e6daf6</wd:ID>
+									<wd:ID wd:type="Locale_ID">en_US</wd:ID>
+								</wd:Local_Reference>
+								<wd:Time_Profile_Reference
+									wd:Descriptor="Standard Hours - 40">
+									<wd:ID wd:type="WID">e57d85ad0fed4ff390953935e2873466</wd:ID>
+									<wd:ID wd:type="Time_Profile_ID">344.1</wd:ID>
+								</wd:Time_Profile_Reference>
+								<wd:Scheduled_Weekly_Hours>40</wd:Scheduled_Weekly_Hours>
+								<wd:Address_Data wd:Effective_Date="2000-01-01-08:00"
+									wd:Address_Format_Type="Basic"
+									wd:Formatted_Address="3939 The City&amp;#xa;San Francisco, CA 94111&amp;#xa;United States of America"
+									wd:Defaulted_Business_Site_Address="0">
+									<wd:Country_Reference wd:Descriptor="United States of America">
+										<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+										<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+										<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+										<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+									</wd:Country_Reference>
+									<wd:Last_Modified>2011-06-20T13:54:02.023-07:00
+									</wd:Last_Modified>
+									<wd:Address_Line_Data wd:Type="ADDRESS_LINE_1"
+										wd:Descriptor="Address Line 1">3939 The City</wd:Address_Line_Data>
+									<wd:Municipality>San Francisco</wd:Municipality>
+									<wd:Country_Region_Reference
+										wd:Descriptor="California">
+										<wd:ID wd:type="WID">ec3d210e4240442e99a28fa70419aec5</wd:ID>
+										<wd:ID wd:type="Country_Region_ID">USA-CA</wd:ID>
+									</wd:Country_Region_Reference>
+									<wd:Country_Region_Descriptor>California
+									</wd:Country_Region_Descriptor>
+									<wd:Postal_Code>94111</wd:Postal_Code>
+									<wd:Usage_Data wd:Public="1">
+										<wd:Type_Data wd:Primary="1">
+											<wd:Type_Reference wd:Descriptor="Business">
+												<wd:ID wd:type="WID">4fae289a7fe541b098ca9448e462ff6b
+												</wd:ID>
+												<wd:ID wd:type="Communication_Usage_Type_ID">BUSINESS</wd:ID>
+											</wd:Type_Reference>
+										</wd:Type_Data>
+										<wd:Use_For_Reference wd:Descriptor="Street Address">
+											<wd:ID wd:type="WID">f785430145674364a613cd56086942c4</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">STREET</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Reference wd:Descriptor="Billing">
+											<wd:ID wd:type="WID">7a232f5736a840a393b8ab43df7becd5</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">BILLING</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Reference wd:Descriptor="Shipping">
+											<wd:ID wd:type="WID">b58a4a54e04c4e1f8fc32bfc3b1acf</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">SHIPPING</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Reference wd:Descriptor="Mailing">
+											<wd:ID wd:type="WID">9385649a0c4b4ddea7fb0d823c2f1bcd</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">MAILING</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Reference wd:Descriptor="Remit To">
+											<wd:ID wd:type="WID">8f470e4f6ffd49638c80ea6b5443bddb</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">REMIT</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Remit To">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb68ff8f39b99</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-14
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Mailing">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb68a34639b97</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-12
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Shipping">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb68756039b96</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-11
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Billing">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb68487439b95</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-10
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Street Address">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb681b8839b94</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-9
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+									</wd:Usage_Data>
+									<wd:Address_Reference wd:Descriptor="ADDRESS_REFERENCE-4-640">
+										<wd:ID wd:type="WID">db39b882ec495daed85c9f94876283</wd:ID>
+										<wd:ID wd:type="Address_ID">ADDRESS_REFERENCE-4-640</wd:ID>
+									</wd:Address_Reference>
+								</wd:Address_Data>
+							</wd:Business_Site_Summary_Data>
+							<wd:Payroll_Interface_Processing_Data>
+								<wd:Effective_Date>2000-01-01-08:00</wd:Effective_Date>
+								<wd:Pay_Rate_Type_Reference
+									wd:Descriptor="Salaried">
+									<wd:ID wd:type="WID">bbecf03d42c34e34a6e084b2d271b88b</wd:ID>
+									<wd:ID wd:type="Pay_Rate_Type_ID">Salary</wd:ID>
+								</wd:Pay_Rate_Type_Reference>
+								<wd:Frequency_Reference wd:Descriptor="Monthly">
+									<wd:ID wd:type="WID">617115491999471a992de3106ae2b1f4</wd:ID>
+									<wd:ID wd:type="Frequency_ID">Monthly</wd:ID>
+								</wd:Frequency_Reference>
+								<wd:Pay_Group_Reference
+									wd:Descriptor="Global Modern Services, Inc. - GMS&gt; Pay Group 1">
+									<wd:ID wd:type="WID">dd37333536334f2c9622b0aaaa1e5172</wd:ID>
+									<wd:ID wd:type="Ext_Pay_Group_ID" wd:parent_type="External_Payroll_Entity_ID"
+										wd:parent_id="GMS">1</wd:ID>
+									<wd:ID wd:type="External_Pay_Group_ID">589.1</wd:ID>
+								</wd:Pay_Group_Reference>
+								<wd:Payroll_Entity_Reference
+									wd:Descriptor="Global Modern Services, Inc. - GMS">
+									<wd:ID wd:type="WID">012f6cfbeac64976b1320dafcfe848fe</wd:ID>
+									<wd:ID wd:type="External_Payroll_Entity_ID">GMS</wd:ID>
+								</wd:Payroll_Entity_Reference>
+								<wd:External_Employee_Type_Reference
+									wd:Descriptor="Direct">
+									<wd:ID wd:type="WID">673f859c593949c18655aaaaa3a8e790</wd:ID>
+									<wd:ID wd:type="EmployeeType">Direct</wd:ID>
+									<wd:ID wd:type="External_Payroll_Employee_Type_ID">681.1</wd:ID>
+								</wd:External_Employee_Type_Reference>
+							</wd:Payroll_Interface_Processing_Data>
+							<wd:Work_Space__Reference wd:Descriptor="Office of the CHRO">
+								<wd:ID wd:type="WID">c4b80259d40043ee98ba2d456aa03f05</wd:ID>
+								<wd:ID wd:type="Location_ID">LOCATION-4-127</wd:ID>
+							</wd:Work_Space__Reference>
+							<wd:Manager_as_of_last_detected_manager_change_Reference
+								wd:Descriptor="Steve Seagal (21002)">
+								<wd:ID wd:type="WID">0e44c92412d34b01ace61e80a47aaf6d</wd:ID>
+								<wd:ID wd:type="Employee_ID">21002</wd:ID>
+							</wd:Manager_as_of_last_detected_manager_change_Reference>
+						</wd:Position_Data>
+					</wd:Worker_Job_Data>
+					<wd:Worker_Status_Data>
+						<wd:Active>1</wd:Active>
+						<wd:Active_Status_Date>2000-01-01-08:00</wd:Active_Status_Date>
+						<wd:Hire_Date>2000-01-01-08:00</wd:Hire_Date>
+						<wd:Original_Hire_Date>2000-01-01-08:00</wd:Original_Hire_Date>
+						<wd:Hire_Reason_Reference
+							wd:Descriptor="Hire Employee &gt; New Hire &gt; New Position">
+							<wd:ID wd:type="WID">f2f783ca674e4c38986b76f439e78f86</wd:ID>
+							<wd:ID wd:type="Event_Classification_Subcategory_ID">Hire_Employee_New_Hire_New_Position</wd:ID>
+							<wd:ID wd:type="General_Event_Subcategory_ID">Hire_Employee_New_Hire_New_Position</wd:ID>
+						</wd:Hire_Reason_Reference>
+						<wd:Continuous_Service_Date>2000-01-01-08:00
+						</wd:Continuous_Service_Date>
+						<wd:First_Day_of_Work>2000-01-01-08:00</wd:First_Day_of_Work>
+						<wd:Retired>0</wd:Retired>
+						<wd:Seniority_Date>2000-01-01-08:00</wd:Seniority_Date>
+						<wd:Days_Unemployed>0</wd:Days_Unemployed>
+						<wd:Months_Continuous_Prior_Employment>0
+						</wd:Months_Continuous_Prior_Employment>
+						<wd:Terminated>0</wd:Terminated>
+						<wd:Not_Eligible_for_Hire>0</wd:Not_Eligible_for_Hire>
+						<wd:Regrettable_Termination>0</wd:Regrettable_Termination>
+						<wd:Not_Eligible_for_Rehire>0</wd:Not_Eligible_for_Rehire>
+						<wd:Not_Returning>0</wd:Not_Returning>
+						<wd:Return_Unknown>0</wd:Return_Unknown>
+						<wd:Rehire>0</wd:Rehire>
+					</wd:Worker_Status_Data>
+					<wd:International_Assignment_Summary_Data>
+						<wd:Has_International_Assignment>0
+						</wd:Has_International_Assignment>
+						<wd:Home_Country_Reference
+							wd:Descriptor="United States of America">
+							<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+							<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+							<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+							<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+						</wd:Home_Country_Reference>
+					</wd:International_Assignment_Summary_Data>
+				</wd:Employment_Data>
+				<wd:Compensation_Data>
+					<wd:Compensation_Effective_Date>2013-04-01-07:00
+					</wd:Compensation_Effective_Date>
+					<wd:Reason_Reference
+						wd:Descriptor="Merit &gt; Performance &gt; Annual Performance Appraisal">
+						<wd:ID wd:type="WID">88dda4e43367476f8c9a268efc80e65d</wd:ID>
+						<wd:ID wd:type="Event_Classification_Subcategory_ID">Merit _Performance_Annual_Focal_Review
+						</wd:ID>
+						<wd:ID wd:type="General_Event_Subcategory_ID">Merit _Performance_Annual_Focal_Review
+						</wd:ID>
+					</wd:Reason_Reference>
+					<wd:Compensation_Guidelines_Data>
+						<wd:Compensation_Package_Reference
+							wd:Descriptor="Executive Compensation Package">
+							<wd:ID wd:type="WID">d802ccf302e0497eb411ce74d9544f0a</wd:ID>
+							<wd:ID wd:type="Compensation_Package_ID">Executive_Compensation_Package</wd:ID>
+						</wd:Compensation_Package_Reference>
+						<wd:Compensation_Grade_Reference
+							wd:Descriptor="Executive Level 2">
+							<wd:ID wd:type="WID">659ff22ec6e64537a063b7bda55f4d</wd:ID>
+							<wd:ID wd:type="Compensation_Grade_ID">Executive_Level_2</wd:ID>
+						</wd:Compensation_Grade_Reference>
+						<wd:Compensation_Grade_Profile_Reference
+							wd:Descriptor="USA (Tier 1)">
+							<wd:ID wd:type="WID">8c1c6b916b134823ad248cd1927dd7ee</wd:ID>
+							<wd:ID wd:type="Compensation_Grade_Profile_ID">317.9</wd:ID>
+						</wd:Compensation_Grade_Profile_Reference>
+					</wd:Compensation_Guidelines_Data>
+					<wd:Salary_and_Hourly_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="General Salary Plan">
+							<wd:ID wd:type="WID">c4b80259d40043ee98ba2d4aaa803f05</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">SALARY_Salary_Plan</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Compensation_Element_Reference
+							wd:Descriptor="Base Pay">
+							<wd:ID wd:type="WID">998c72bbfa474cb4aa7e37f579434766</wd:ID>
+							<wd:ID wd:type="Compensation_Element_ID">Base_Pay</wd:ID>
+						</wd:Compensation_Element_Reference>
+						<wd:Amount>197491.24</wd:Amount>
+						<wd:Currency_Reference wd:Descriptor="USD">
+							<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+							<wd:ID wd:type="Currency_ID">USD</wd:ID>
+							<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+						</wd:Currency_Reference>
+						<wd:Frequency_Reference wd:Descriptor="Annual">
+							<wd:ID wd:type="WID">fbbd5f763c6c45d5a07e172b8bb8c161</wd:ID>
+							<wd:ID wd:type="Frequency_ID">Annual</wd:ID>
+						</wd:Frequency_Reference>
+						<wd:Assignment_Effective_Date>2013-04-01-07:00
+						</wd:Assignment_Effective_Date>
+					</wd:Salary_and_Hourly_Data>
+					<wd:Allowance_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Cell / Mobile Phone Allowance">
+							<wd:ID wd:type="WID">bad55199979042e0b2ce5d8a4feaf452</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">ALLOWANCE_Cell_Mobile_Phone_Allowance_USA
+							</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Compensation_Element_Reference
+							wd:Descriptor="Cell / Mobile Phone Allowance">
+							<wd:ID wd:type="WID">63de0d3adede41df98c5827a2fb5a95c</wd:ID>
+							<wd:ID wd:type="Compensation_Element_ID">Cell_Mobile_Phone_Allowance</wd:ID>
+						</wd:Compensation_Element_Reference>
+						<wd:Amount>150</wd:Amount>
+						<wd:Currency_Reference wd:Descriptor="USD">
+							<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+							<wd:ID wd:type="Currency_ID">USD</wd:ID>
+							<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+						</wd:Currency_Reference>
+						<wd:Frequency_Reference wd:Descriptor="Monthly">
+							<wd:ID wd:type="WID">617115491999471a992de3106ae2b1f4</wd:ID>
+							<wd:ID wd:type="Frequency_ID">Monthly</wd:ID>
+						</wd:Frequency_Reference>
+						<wd:Assignment_Effective_Date>2013-04-01-07:00
+						</wd:Assignment_Effective_Date>
+					</wd:Allowance_Plan_Data>
+					<wd:Allowance_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Car Allowance Plan">
+							<wd:ID wd:type="WID">a9b6fdf7aa4cb18bb9ed9bb1c388b7</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">ALLOWANCE_Car_Allowance_Plan</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Compensation_Element_Reference
+							wd:Descriptor="Car Allowance">
+							<wd:ID wd:type="WID">531ccf24cae34276856941ce87637b06</wd:ID>
+							<wd:ID wd:type="Compensation_Element_ID">Car_Allowance</wd:ID>
+						</wd:Compensation_Element_Reference>
+						<wd:Amount>500</wd:Amount>
+						<wd:Currency_Reference wd:Descriptor="USD">
+							<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+							<wd:ID wd:type="Currency_ID">USD</wd:ID>
+							<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+						</wd:Currency_Reference>
+						<wd:Frequency_Reference wd:Descriptor="Monthly">
+							<wd:ID wd:type="WID">617115491999471a992de3106ae2b1f4</wd:ID>
+							<wd:ID wd:type="Frequency_ID">Monthly</wd:ID>
+						</wd:Frequency_Reference>
+						<wd:Assignment_Effective_Date>2013-04-01-07:00
+						</wd:Assignment_Effective_Date>
+					</wd:Allowance_Plan_Data>
+					<wd:Bonus_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Executive Bonus Plan">
+							<wd:ID wd:type="WID">52da2c2f3fd942f8a58cc78f2b5ca0b9</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">BONUS_PERCENT_BASED_Executive_Bonus_Plan
+							</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Compensation_Element_Reference
+							wd:Descriptor="Incentive">
+							<wd:ID wd:type="WID">ef7691cbd08443aaa3896b682115d0b1</wd:ID>
+							<wd:ID wd:type="Compensation_Element_ID">Incentive</wd:ID>
+						</wd:Compensation_Element_Reference>
+						<wd:Individual_Target_Amount>0</wd:Individual_Target_Amount>
+						<wd:Default_Target_Amount>0.2</wd:Default_Target_Amount>
+						<wd:Individual_Target_Percent>0</wd:Individual_Target_Percent>
+						<wd:Default_Target_Percent>0.2</wd:Default_Target_Percent>
+						<wd:Guaranteed_Minimum>0</wd:Guaranteed_Minimum>
+						<wd:Currency_Reference wd:Descriptor="USD">
+							<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+							<wd:ID wd:type="Currency_ID">USD</wd:ID>
+							<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+						</wd:Currency_Reference>
+						<wd:Frequency_Reference wd:Descriptor="Quarterly">
+							<wd:ID wd:type="WID">fa61dacb69754722990e226c3c2b11e0</wd:ID>
+							<wd:ID wd:type="Frequency_ID">Quarterly</wd:ID>
+						</wd:Frequency_Reference>
+						<wd:Percent_Assigned>1</wd:Percent_Assigned>
+						<wd:Assignment_Effective_Date>2008-01-01-08:00
+						</wd:Assignment_Effective_Date>
+					</wd:Bonus_Plan_Data>
+					<wd:Merit_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Merit Plan - Exec Mgmt Team">
+							<wd:ID wd:type="WID">35c7cc9203844800a65e6cd9d49d9c08</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">MERIT_Exec_Mgmt_Team</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Individual_Target_Percent>0</wd:Individual_Target_Percent>
+						<wd:Merit_Increase_Matrix_Reference
+							wd:Descriptor="Merit Matrix by Review Rating and Quartile (Non-Weighted) - Single Target">
+							<wd:ID wd:type="WID">6cb8a5972c16496fb3fc4ff93a7b7a1d</wd:ID>
+							<wd:ID wd:type="Merit_Increase_Matrix_ID">MERIT_INCREASE_MATRIX_FOR_MERIT_PLAN-1
+							</wd:ID>
+						</wd:Merit_Increase_Matrix_Reference>
+						<wd:Guaranteed_Minimum>0</wd:Guaranteed_Minimum>
+						<wd:Assignment_Effective_Date>2000-01-01-08:00
+						</wd:Assignment_Effective_Date>
+					</wd:Merit_Plan_Data>
+					<wd:Stock_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Stock Plan - Executive">
+							<wd:ID wd:type="WID">efb3a285bd9846bca837882218a33518</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">STOCK_2008_Stock_Plan_Executive</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Percent_of_Target_as_Option>0.85
+						</wd:Percent_of_Target_as_Option>
+						<wd:Percent_of_Target_as_Stock>0.15
+						</wd:Percent_of_Target_as_Stock>
+						<wd:Target_Shares>5000</wd:Target_Shares>
+						<wd:Individual_Target_Shares>0</wd:Individual_Target_Shares>
+						<wd:Vesting_Schedule_Reference
+							wd:Descriptor="4-Year, Quarterly">
+							<wd:ID wd:type="WID">5080f87184bc4a4f98b56ee3814de3</wd:ID>
+							<wd:ID wd:type="Stock_Vesting_Schedule_ID">4YQ</wd:ID>
+						</wd:Vesting_Schedule_Reference>
+						<wd:Compensation_Matrix_Reference
+							wd:Descriptor="Stock Matrix by Review Rating and Retention (Weighted) - Single Target">
+							<wd:ID wd:type="WID">34e43da9b5c346ffa9f869a98e5975d0</wd:ID>
+							<wd:ID wd:type="Merit_Increase_Matrix_ID">COMPENSATION_MATRIX_WEIGHTED_PERCENT_BASED-4-4
+							</wd:ID>
+						</wd:Compensation_Matrix_Reference>
+						<wd:Assignment_Effective_Date>2008-01-01-08:00
+						</wd:Assignment_Effective_Date>
+					</wd:Stock_Plan_Data>
+					<wd:Employee_Compensation_Summary_Data>
+						<wd:Employee_Compensation_Summary_Data>
+							<wd:Total_Base_Pay>197491.24</wd:Total_Base_Pay>
+							<wd:Total_Salary_and_Allowances>205291.24
+							</wd:Total_Salary_and_Allowances>
+							<wd:Primary_Compensation_Basis>244789.49
+							</wd:Primary_Compensation_Basis>
+							<wd:Currency_Reference wd:Descriptor="USD">
+								<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+								<wd:ID wd:type="Currency_ID">USD</wd:ID>
+								<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+							</wd:Currency_Reference>
+							<wd:Frequency_Reference wd:Descriptor="Annual">
+								<wd:ID wd:type="WID">fbbd5f763c6c45d5a07e172b8bb8c161</wd:ID>
+								<wd:ID wd:type="Frequency_ID">Annual</wd:ID>
+							</wd:Frequency_Reference>
+						</wd:Employee_Compensation_Summary_Data>
+						<wd:Annualized_Summary_Data>
+							<wd:Total_Base_Pay>197491.24</wd:Total_Base_Pay>
+							<wd:Total_Salary_and_Allowances>205291.24
+							</wd:Total_Salary_and_Allowances>
+							<wd:Primary_Compensation_Basis>244789.49
+							</wd:Primary_Compensation_Basis>
+							<wd:Currency_Reference wd:Descriptor="USD">
+								<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+								<wd:ID wd:type="Currency_ID">USD</wd:ID>
+								<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+							</wd:Currency_Reference>
+							<wd:Frequency_Reference wd:Descriptor="Annual">
+								<wd:ID wd:type="WID">fbbd5f763c6c45d5a07e172b8bb8c161</wd:ID>
+								<wd:ID wd:type="Frequency_ID">Annual</wd:ID>
+							</wd:Frequency_Reference>
+						</wd:Annualized_Summary_Data>
+						<wd:Summary_Data_in_Pay_Group_Frequency>
+							<wd:Total_Base_Pay>16457.6</wd:Total_Base_Pay>
+							<wd:Total_Salary_and_Allowances>17107.6
+							</wd:Total_Salary_and_Allowances>
+							<wd:Primary_Compensation_Basis>20399.12
+							</wd:Primary_Compensation_Basis>
+							<wd:Currency_Reference wd:Descriptor="USD">
+								<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+								<wd:ID wd:type="Currency_ID">USD</wd:ID>
+								<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+							</wd:Currency_Reference>
+							<wd:Frequency_Reference wd:Descriptor="Monthly">
+								<wd:ID wd:type="WID">617115491999471a992de3106ae2b1f4</wd:ID>
+								<wd:ID wd:type="Frequency_ID">Monthly</wd:ID>
+							</wd:Frequency_Reference>
+						</wd:Summary_Data_in_Pay_Group_Frequency>
+						<wd:Annualized_in_Reporting_Currency_Summary_Data>
+							<wd:Total_Base_Pay>197491.24</wd:Total_Base_Pay>
+							<wd:Total_Salary_and_Allowances>205291.24
+							</wd:Total_Salary_and_Allowances>
+							<wd:Primary_Compensation_Basis>244789.49
+							</wd:Primary_Compensation_Basis>
+							<wd:Currency_Reference wd:Descriptor="USD">
+								<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+								<wd:ID wd:type="Currency_ID">USD</wd:ID>
+								<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+							</wd:Currency_Reference>
+							<wd:Frequency_Reference wd:Descriptor="Annual">
+								<wd:ID wd:type="WID">fbbd5f763c6c45d5a07e172b8bb8c161</wd:ID>
+								<wd:ID wd:type="Frequency_ID">Annual</wd:ID>
+							</wd:Frequency_Reference>
+						</wd:Annualized_in_Reporting_Currency_Summary_Data>
+					</wd:Employee_Compensation_Summary_Data>
+				</wd:Compensation_Data>
+			</wd:Worker_Data>
+		</wd:Worker>
+    <wd:Worker>
+			<wd:Worker_Data>
+				<wd:Worker_ID>21001</wd:Worker_ID>
+				<wd:User_ID>lDoe</wd:User_ID>
+				<wd:Personal_Data>
+					<wd:Name_Data>
+						<wd:Legal_Name_Data>
+							<wd:Name_Detail_Data wd:Formatted_Name="John Doe"
+								wd:Reporting_Name="Doe, John">
+								<wd:Country_Reference wd:Descriptor="United States of America">
+									<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+								</wd:Country_Reference>
+								<wd:First_Name>John</wd:First_Name>
+								<wd:Last_Name>Doe</wd:Last_Name>
+							</wd:Name_Detail_Data>
+						</wd:Legal_Name_Data>
+						<wd:Preferred_Name_Data>
+							<wd:Name_Detail_Data wd:Formatted_Name="John Doe"
+								wd:Reporting_Name="Doe, John">
+								<wd:Country_Reference wd:Descriptor="United States of America">
+									<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+								</wd:Country_Reference>
+								<wd:First_Name>John</wd:First_Name>
+								<wd:Last_Name>Doe</wd:Last_Name>
+							</wd:Name_Detail_Data>
+						</wd:Preferred_Name_Data>
+					</wd:Name_Data>
+					<wd:Gender_Reference wd:Descriptor="Female">
+						<wd:ID wd:type="WID">9cce3bec2d0d420283f76f51b928d885</wd:ID>
+						<wd:ID wd:type="Gender_Code">Female</wd:ID>
+					</wd:Gender_Reference>
+					<wd:Birth_Date>1972-05-25-07:00</wd:Birth_Date>
+					<wd:Marital_Status_Reference
+						wd:Descriptor="Married (United States of America)">
+						<wd:ID wd:type="WID">817d5a302dea4eb29a603ab2b47bb4ed</wd:ID>
+						<wd:ID wd:type="Marital_Status_ID">Married_USA</wd:ID>
+					</wd:Marital_Status_Reference>
+					<wd:Ethnicity_Reference wd:Descriptor="White (United States of America)">
+						<wd:ID wd:type="WID">ea1036b7dc884ec78a4587bb94e5a130</wd:ID>
+						<wd:ID wd:type="Ethnicity_ID">White</wd:ID>
+					</wd:Ethnicity_Reference>
+					<wd:Hispanic_or_Latino>0</wd:Hispanic_or_Latino>
+					<wd:Citizenship_Status_Reference
+						wd:Descriptor="Citizen (United States of America)">
+						<wd:ID wd:type="WID">2ec46eb7edcc4d5aa97af54147204e0e</wd:ID>
+						<wd:ID wd:type="Citizenship_Status_Code">USA_Citizen</wd:ID>
+					</wd:Citizenship_Status_Reference>
+					<wd:Identification_Data>
+						<wd:National_ID>
+							<wd:National_ID_Reference wd:Descriptor="545-21-2822 (USA-SSN)">
+								<wd:ID wd:type="WID">0eec3f517ccc4ec2adba6e2a5a8465c7</wd:ID>
+							</wd:National_ID_Reference>
+							<wd:National_ID_Data>
+								<wd:ID>545212822</wd:ID>
+								<wd:ID_Type_Reference wd:Descriptor="Social Security Number (SSN)">
+									<wd:ID wd:type="WID">93636994cfe84825a1dxxx933cbba7e7</wd:ID>
+									<wd:ID wd:type="National_ID_Type_Code">USA-SSN</wd:ID>
+								</wd:ID_Type_Reference>
+								<wd:Country_Reference wd:Descriptor="United States of America">
+									<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+								</wd:Country_Reference>
+								<wd:Issued_Date>1972-01-01-08:00</wd:Issued_Date>
+								<wd:Verified_By_Reference
+									wd:Descriptor="John Doe (21001)">
+									<wd:ID wd:type="WID">3aa5550b7fe348b98d7b5741afc65534</wd:ID>
+									<wd:ID wd:type="Employee_ID">21001</wd:ID>
+								</wd:Verified_By_Reference>
+							</wd:National_ID_Data>
+							<wd:National_ID_Shared_Reference
+								wd:Descriptor="NATIONAL_IDENTIFIER_REFERENCE-1-7">
+								<wd:ID wd:type="WID">356b661703a94a608ddda24870ead0d5</wd:ID>
+								<wd:ID wd:type="National_Identifier_Reference_ID">NATIONAL_IDENTIFIER_REFERENCE-1-7</wd:ID>
+							</wd:National_ID_Shared_Reference>
+						</wd:National_ID>
+						<wd:Passport_ID>
+							<wd:Passport_ID_Reference
+								wd:Descriptor="John Doe: Passport Identifier/Standard/039845814">
+								<wd:ID wd:type="WID">8fd55f53ddeb4f66bd9679b982247f93</wd:ID>
+							</wd:Passport_ID_Reference>
+							<wd:Passport_ID_Data>
+								<wd:ID>039845814</wd:ID>
+								<wd:ID_Type_Reference wd:Descriptor="Standard">
+									<wd:ID wd:type="WID">fb9cbb1718ad40d1b34deaeddc1fd3f9</wd:ID>
+									<wd:ID wd:type="Passport_ID_Type_ID">STANDARD</wd:ID>
+								</wd:ID_Type_Reference>
+								<wd:Country_Reference wd:Descriptor="United States of America">
+									<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+									<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+								</wd:Country_Reference>
+								<wd:Issued_Date>1999-01-18-08:00</wd:Issued_Date>
+								<wd:Expiration_Date>2009-01-18-08:00</wd:Expiration_Date>
+								<wd:Verification_Date>2000-01-01-08:00</wd:Verification_Date>
+								<wd:Verified_By_Reference
+									wd:Descriptor="John Doe (21001)">
+									<wd:ID wd:type="WID">3aa5550b7fe348b98d7b5741afc65534</wd:ID>
+									<wd:ID wd:type="Employee_ID">21001</wd:ID>
+								</wd:Verified_By_Reference>
+							</wd:Passport_ID_Data>
+							<wd:Passport_ID_Shared_Reference
+								wd:Descriptor="PASSPORT_IDENTIFIER_REFERENCE-1-11">
+								<wd:ID wd:type="WID">d6c464a29bd4438e9397d28941ba7fef</wd:ID>
+								<wd:ID wd:type="Passport_Identifier_Reference_ID">PASSPORT_IDENTIFIER_REFERENCE-1-11</wd:ID>
+							</wd:Passport_ID_Shared_Reference>
+						</wd:Passport_ID>
+						<wd:License_ID>
+							<wd:License_ID_Reference
+								wd:Descriptor="John Doe: License Identifier/Driver's/C148105815">
+								<wd:ID wd:type="WID">48da6362cbcf4f9f9561ebb7182b0c67</wd:ID>
+								<wd:ID wd:type="License_Identifier_ID">464.11</wd:ID>
+							</wd:License_ID_Reference>
+							<wd:License_ID_Data>
+								<wd:ID>C148105815</wd:ID>
+								<wd:ID_Type_Reference wd:Descriptor="Driver's">
+									<wd:ID wd:type="WID">a9e0c180b6da47938d75abf08b06a7db</wd:ID>
+									<wd:ID wd:type="License_ID_Type_ID">469.1</wd:ID>
+								</wd:ID_Type_Reference>
+								<wd:Authority_Reference
+									wd:Descriptor="California Department of Motor Vehicles">
+									<wd:ID wd:type="WID">9321d8c0c4c14738859e29f148e309c4</wd:ID>
+									<wd:ID wd:type="Authority_ID">215.4</wd:ID>
+								</wd:Authority_Reference>
+								<wd:Issued_Date>2004-05-18-07:00</wd:Issued_Date>
+								<wd:Expiration_Date>2009-05-18-07:00</wd:Expiration_Date>
+								<wd:Verification_Date>2005-01-01-08:00</wd:Verification_Date>
+								<wd:Verified_By_Reference
+									wd:Descriptor="John Doe (21001)">
+									<wd:ID wd:type="WID">3aa5550b7fe348b98d7b5741afc65534</wd:ID>
+									<wd:ID wd:type="Employee_ID">21001</wd:ID>
+								</wd:Verified_By_Reference>
+							</wd:License_ID_Data>
+							<wd:License_ID_Shared_Reference
+								wd:Descriptor="LICENSE_IDENTIFIER_REFERENCE-1-11">
+								<wd:ID wd:type="WID">ee657607598049d0a1cea3b7ebf596af</wd:ID>
+								<wd:ID wd:type="License_Identifier_Reference_ID">LICENSE_IDENTIFIER_REFERENCE-1-11</wd:ID>
+							</wd:License_ID_Shared_Reference>
+						</wd:License_ID>
+					</wd:Identification_Data>
+					<wd:Contact_Data>
+						<wd:Address_Data wd:Effective_Date="2000-01-01-08:00"
+							wd:Address_Format_Type="Basic"
+							wd:Formatted_Address="3939 The City&amp;#xa;San Francisco, CA 94111&amp;#xa;United States of America"
+							wd:Defaulted_Business_Site_Address="1">
+							<wd:Country_Reference wd:Descriptor="United States of America">
+								<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+							</wd:Country_Reference>
+							<wd:Last_Modified>2011-06-20T13:54:02.023-07:00
+							</wd:Last_Modified>
+							<wd:Address_Line_Data wd:Type="ADDRESS_LINE_1"
+								wd:Descriptor="Address Line 1">3939 The City</wd:Address_Line_Data>
+							<wd:Municipality>San Francisco</wd:Municipality>
+							<wd:Country_Region_Reference
+								wd:Descriptor="California">
+								<wd:ID wd:type="WID">ec3d210e4240442e99a28fa70419aec5</wd:ID>
+								<wd:ID wd:type="Country_Region_ID">USA-CA</wd:ID>
+							</wd:Country_Region_Reference>
+							<wd:Country_Region_Descriptor>California
+							</wd:Country_Region_Descriptor>
+							<wd:Postal_Code>94111</wd:Postal_Code>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Work">
+										<wd:ID wd:type="WID">1f27f250dfaa4724ab1e1617174281e4</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">WORK</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+							<wd:Address_Reference wd:Descriptor="ADDRESS_REFERENCE-4-640">
+								<wd:ID wd:type="WID">db39b882ec495daed85c9f94876283</wd:ID>
+								<wd:ID wd:type="Address_ID">ADDRESS_REFERENCE-4-640</wd:ID>
+							</wd:Address_Reference>
+						</wd:Address_Data>
+						<wd:Address_Data wd:Effective_Date="2015-11-18-08:00"
+							wd:Address_Format_Type="Basic"
+							wd:Formatted_Address="45 Laurel Street&amp;#xa;San Francisco, CA 94118&amp;#xa;United States of America"
+							wd:Defaulted_Business_Site_Address="0">
+							<wd:Country_Reference wd:Descriptor="United States of America">
+								<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+								<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+							</wd:Country_Reference>
+							<wd:Last_Modified>2015-11-18T08:15:02.169-08:00
+							</wd:Last_Modified>
+							<wd:Address_Line_Data wd:Type="ADDRESS_LINE_1"
+								wd:Descriptor="Address Line 1">45 Laurel Street</wd:Address_Line_Data>
+							<wd:Municipality>San Francisco</wd:Municipality>
+							<wd:Country_Region_Reference
+								wd:Descriptor="California">
+								<wd:ID wd:type="WID">ec3d210e4240442e99a28fa70419aec5</wd:ID>
+								<wd:ID wd:type="Country_Region_ID">USA-CA</wd:ID>
+							</wd:Country_Region_Reference>
+							<wd:Country_Region_Descriptor>California
+							</wd:Country_Region_Descriptor>
+							<wd:Postal_Code>94118</wd:Postal_Code>
+							<wd:Usage_Data wd:Public="0">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+							<wd:Address_Reference wd:Descriptor="ADDRESS_REFERENCE-4-1">
+								<wd:ID wd:type="WID">91d468fd9c3b465f86ed1362f06b3c5b</wd:ID>
+								<wd:ID wd:type="Address_ID">ADDRESS_REFERENCE-4-1</wd:ID>
+							</wd:Address_Reference>
+						</wd:Address_Data>
+						<wd:Phone_Data wd:Formatted_Phone="+1 (415) 444-8262">
+							<wd:Country_ISO_Code>USA</wd:Country_ISO_Code>
+							<wd:International_Phone_Code>1</wd:International_Phone_Code>
+							<wd:Area_Code>415</wd:Area_Code>
+							<wd:Phone_Number>444-8262</wd:Phone_Number>
+							<wd:Phone_Device_Type_Reference
+								wd:Descriptor="Telephone">
+								<wd:ID wd:type="WID">3014da0ed66f41a3b88085b19175300e</wd:ID>
+								<wd:ID wd:type="Phone_Device_Type_ID">1063.5</wd:ID>
+							</wd:Phone_Device_Type_Reference>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="0">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Phone_Data>
+						<wd:Phone_Data wd:Formatted_Phone="+1 (415) 333-33">
+							<wd:Country_ISO_Code>USA</wd:Country_ISO_Code>
+							<wd:International_Phone_Code>1</wd:International_Phone_Code>
+							<wd:Area_Code>415</wd:Area_Code>
+							<wd:Phone_Number>333-33</wd:Phone_Number>
+							<wd:Phone_Device_Type_Reference
+								wd:Descriptor="Mobile">
+								<wd:ID wd:type="WID">d691375437c848aea9d5b0874353bfd7</wd:ID>
+								<wd:ID wd:type="Phone_Device_Type_ID">1063.1</wd:ID>
+							</wd:Phone_Device_Type_Reference>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Work">
+										<wd:ID wd:type="WID">1f27f250dfaa4724ab1e1617174281e4</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">WORK</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Phone_Data>
+						<wd:Phone_Data wd:Formatted_Phone="+1 (415) 441- x003">
+							<wd:Country_ISO_Code>USA</wd:Country_ISO_Code>
+							<wd:International_Phone_Code>1</wd:International_Phone_Code>
+							<wd:Area_Code>415</wd:Area_Code>
+							<wd:Phone_Number>441-</wd:Phone_Number>
+							<wd:Phone_Extension>003</wd:Phone_Extension>
+							<wd:Phone_Device_Type_Reference
+								wd:Descriptor="Telephone">
+								<wd:ID wd:type="WID">3014da0ed66f41a3b88085b19175300e</wd:ID>
+								<wd:ID wd:type="Phone_Device_Type_ID">1063.5</wd:ID>
+							</wd:Phone_Device_Type_Reference>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Phone_Data>
+						<wd:Email_Address_Data>
+							<wd:Email_Address>test.test@test.test
+							</wd:Email_Address>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Work">
+										<wd:ID wd:type="WID">1f27f250dfaa4724ab1e1617174281e4</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">WORK</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Email_Address_Data>
+						<wd:Email_Address_Data>
+							<wd:Email_Address>test.test@test.test</wd:Email_Address>
+							<wd:Usage_Data wd:Public="0">
+								<wd:Type_Data wd:Primary="0">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Email_Address_Data>
+						<wd:Instant_Messenger_Data>
+							<wd:Instant_Messenger_Address>lDoe
+							</wd:Instant_Messenger_Address>
+							<wd:Instant_Messenger_Type_Reference
+								wd:Descriptor="AIM">
+								<wd:ID wd:type="WID">8cdd85db9d174b2685ffbe4d6e02ac99</wd:ID>
+								<wd:ID wd:type="Instant_Messenger_Type_ID">248.5</wd:ID>
+							</wd:Instant_Messenger_Type_Reference>
+							<wd:Usage_Data wd:Public="1">
+								<wd:Type_Data wd:Primary="1">
+									<wd:Type_Reference wd:Descriptor="Home">
+										<wd:ID wd:type="WID">836cf00ef5974ac08b786079866c946f</wd:ID>
+										<wd:ID wd:type="Communication_Usage_Type_ID">HOME</wd:ID>
+									</wd:Type_Reference>
+								</wd:Type_Data>
+							</wd:Usage_Data>
+						</wd:Instant_Messenger_Data>
+					</wd:Contact_Data>
+					<wd:Tobacco_Use>0</wd:Tobacco_Use>
+				</wd:Personal_Data>
+				<wd:Employment_Data>
+					<wd:Worker_Job_Data wd:Primary_Job="1">
+						<wd:Position_Data wd:Effective_Date="2014-02-27-08:00">
+							<wd:Position_Reference
+								wd:Descriptor="Chief Human Resources Officer - John Doe (21001)">
+								<wd:ID wd:type="WID">abc35653991e40ab8429db0ba259a125</wd:ID>
+								<wd:ID wd:type="Position_ID">P-00004</wd:ID>
+							</wd:Position_Reference>
+							<wd:Position_ID>P-00004</wd:Position_ID>
+							<wd:Position_Title>Chief Human Resources Officer
+							</wd:Position_Title>
+							<wd:Business_Title>Chief Human Resources Officer
+							</wd:Business_Title>
+							<wd:Start_Date>2000-01-01-08:00</wd:Start_Date>
+							<wd:Worker_Type_Reference wd:Descriptor="Regular">
+								<wd:ID wd:type="WID">9459f5e6f1084433b767c7901ec04416</wd:ID>
+								<wd:ID wd:type="Employee_Type_ID">Regular</wd:ID>
+							</wd:Worker_Type_Reference>
+							<wd:Position_Time_Type_Reference
+								wd:Descriptor="Full time">
+								<wd:ID wd:type="WID">900fa8d9ae6f45a0a788545a85878f40</wd:ID>
+								<wd:ID wd:type="Position_Time_Type_ID">Full_time</wd:ID>
+							</wd:Position_Time_Type_Reference>
+							<wd:Job_Exempt>1</wd:Job_Exempt>
+							<wd:Scheduled_Weekly_Hours>40</wd:Scheduled_Weekly_Hours>
+							<wd:Default_Weekly_Hours>40</wd:Default_Weekly_Hours>
+							<wd:Working_Time_Value>0</wd:Working_Time_Value>
+							<wd:Full_Time_Equivalent_Percentage>100
+							</wd:Full_Time_Equivalent_Percentage>
+							<wd:Exclude_from_Headcount>0</wd:Exclude_from_Headcount>
+							<wd:Pay_Rate_Type_Reference
+								wd:Descriptor="Salaried">
+								<wd:ID wd:type="WID">bbecf03d42c34e34a6e084b2d271b88b</wd:ID>
+								<wd:ID wd:type="Pay_Rate_Type_ID">Salary</wd:ID>
+							</wd:Pay_Rate_Type_Reference>
+							<wd:Job_Classification_Summary_Data>
+								<wd:Job_Classification_Reference
+									wd:Descriptor="1.1 - Executive/Senior Level Officials and Managers (United States EEO-1-United States of America)">
+									<wd:ID wd:type="WID">94e5ed099d114af78590d0425b53bc81</wd:ID>
+									<wd:ID wd:type="Job_Classification_Reference_ID">221.1</wd:ID>
+								</wd:Job_Classification_Reference>
+								<wd:Job_Group_Reference wd:Descriptor="United States EEO-1">
+									<wd:ID wd:type="WID">be4f171eca7a484983b9bc530a22e594</wd:ID>
+								</wd:Job_Group_Reference>
+							</wd:Job_Classification_Summary_Data>
+							<wd:Company_Insider_Reference
+								wd:Descriptor="United States - SEC Section 16 - Officer Insider">
+								<wd:ID wd:type="WID">9328727c54bd42458ff7f04b3cc67891</wd:ID>
+								<wd:ID wd:type="Company_Insider_Type_ID">2136.2</wd:ID>
+							</wd:Company_Insider_Reference>
+							<wd:Federal_Withholding_FEIN>99-0343105
+							</wd:Federal_Withholding_FEIN>
+							<wd:Worker_Compensation_Code_Data>
+								<wd:Workers_Compensation_Code_Reference
+									wd:Descriptor="8810 - Clerical Office Employees (United States of America)">
+									<wd:ID wd:type="WID">b3d930f0fc714b00aa1442a23060ad89</wd:ID>
+									<wd:ID wd:type="Workers_Compensation_ID">8810</wd:ID>
+								</wd:Workers_Compensation_Code_Reference>
+								<wd:Workers_Compensation_Code>8810
+								</wd:Workers_Compensation_Code>
+							</wd:Worker_Compensation_Code_Data>
+							<wd:Job_Profile_Summary_Data>
+								<wd:Job_Profile_Reference
+									wd:Descriptor="Chief Human Resources Officer">
+									<wd:ID wd:type="WID">fd72fab7db654fa3adbbe83ca23c43cb</wd:ID>
+									<wd:ID wd:type="Job_Profile_ID">23000</wd:ID>
+								</wd:Job_Profile_Reference>
+								<wd:Job_Exempt>1</wd:Job_Exempt>
+								<wd:Management_Level_Reference
+									wd:Descriptor="4 Vice President">
+									<wd:ID wd:type="WID">679d4d1ac6da40e19deb7d91e170431d</wd:ID>
+									<wd:ID wd:type="Management_Level_ID">4_Vice_President</wd:ID>
+								</wd:Management_Level_Reference>
+								<wd:Job_Family_Reference wd:Descriptor="Executive Management">
+									<wd:ID wd:type="WID">5f41e62057c944d3a8e60438a2465ca4</wd:ID>
+									<wd:ID wd:type="Job_Family_ID">Executive Management</wd:ID>
+								</wd:Job_Family_Reference>
+								<wd:Job_Profile_Name>Chief Human Resources Officer
+								</wd:Job_Profile_Name>
+								<wd:Work_Shift_Required>0</wd:Work_Shift_Required>
+								<wd:Critical_Job>1</wd:Critical_Job>
+								<wd:Difficulty_to_Fill_Reference
+									wd:Descriptor="Difficult">
+									<wd:ID wd:type="WID">eefc3adabac645c283d96f273f7df5cf</wd:ID>
+									<wd:ID wd:type="Difficulty_to_Fill_Code">DIFFICULT</wd:ID>
+								</wd:Difficulty_to_Fill_Reference>
+							</wd:Job_Profile_Summary_Data>
+							<wd:Business_Site_Summary_Data>
+								<wd:Location_Reference wd:Descriptor="San Francisco">
+									<wd:ID wd:type="WID">d13a7c46a06443c4a33c09afbdf72c73</wd:ID>
+									<wd:ID wd:type="Location_ID">San_Francisco_site</wd:ID>
+								</wd:Location_Reference>
+								<wd:Name>San Francisco</wd:Name>
+								<wd:Location_Type_Reference
+									wd:Descriptor="Headquarters">
+									<wd:ID wd:type="WID">875dcdb9d640404795024f29691ed82b</wd:ID>
+									<wd:ID wd:type="Location_Type_ID">334.4</wd:ID>
+								</wd:Location_Type_Reference>
+								<wd:Local_Reference wd:Descriptor="English (United States) - en_US">
+									<wd:ID wd:type="WID">d9e43b02446c11de98360015c5e6daf6</wd:ID>
+									<wd:ID wd:type="Locale_ID">en_US</wd:ID>
+								</wd:Local_Reference>
+								<wd:Time_Profile_Reference
+									wd:Descriptor="Standard Hours - 40">
+									<wd:ID wd:type="WID">e57d85ad0fed4ff390953935e2873466</wd:ID>
+									<wd:ID wd:type="Time_Profile_ID">344.1</wd:ID>
+								</wd:Time_Profile_Reference>
+								<wd:Scheduled_Weekly_Hours>40</wd:Scheduled_Weekly_Hours>
+								<wd:Address_Data wd:Effective_Date="2000-01-01-08:00"
+									wd:Address_Format_Type="Basic"
+									wd:Formatted_Address="3939 The City&amp;#xa;San Francisco, CA 94111&amp;#xa;United States of America"
+									wd:Defaulted_Business_Site_Address="0">
+									<wd:Country_Reference wd:Descriptor="United States of America">
+										<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+										<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+										<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+										<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+									</wd:Country_Reference>
+									<wd:Last_Modified>2011-06-20T13:54:02.023-07:00
+									</wd:Last_Modified>
+									<wd:Address_Line_Data wd:Type="ADDRESS_LINE_1"
+										wd:Descriptor="Address Line 1">3939 The City</wd:Address_Line_Data>
+									<wd:Municipality>San Francisco</wd:Municipality>
+									<wd:Country_Region_Reference
+										wd:Descriptor="California">
+										<wd:ID wd:type="WID">ec3d210e4240442e99a28fa70419aec5</wd:ID>
+										<wd:ID wd:type="Country_Region_ID">USA-CA</wd:ID>
+									</wd:Country_Region_Reference>
+									<wd:Country_Region_Descriptor>California
+									</wd:Country_Region_Descriptor>
+									<wd:Postal_Code>94111</wd:Postal_Code>
+									<wd:Usage_Data wd:Public="1">
+										<wd:Type_Data wd:Primary="1">
+											<wd:Type_Reference wd:Descriptor="Business">
+												<wd:ID wd:type="WID">4fae289a7fe541b098ca9448e462ff6b
+												</wd:ID>
+												<wd:ID wd:type="Communication_Usage_Type_ID">BUSINESS</wd:ID>
+											</wd:Type_Reference>
+										</wd:Type_Data>
+										<wd:Use_For_Reference wd:Descriptor="Street Address">
+											<wd:ID wd:type="WID">f785430145674364a613cd56086942c4</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">STREET</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Reference wd:Descriptor="Billing">
+											<wd:ID wd:type="WID">7a232f5736a840a393b8ab43df7becd5</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">BILLING</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Reference wd:Descriptor="Shipping">
+											<wd:ID wd:type="WID">b58a4a54e04c4e1f8fc32bfc3b1acf</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">SHIPPING</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Reference wd:Descriptor="Mailing">
+											<wd:ID wd:type="WID">9385649a0c4b4ddea7fb0d823c2f1bcd</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">MAILING</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Reference wd:Descriptor="Remit To">
+											<wd:ID wd:type="WID">8f470e4f6ffd49638c80ea6b5443bddb</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_ID">REMIT</wd:ID>
+										</wd:Use_For_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Remit To">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb68ff8f39b99</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-14
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Mailing">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb68a34639b97</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-12
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Shipping">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb68756039b96</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-11
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Billing">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb68487439b95</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-10
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+										<wd:Use_For_Tenanted_Reference
+											wd:Descriptor="Street Address">
+											<wd:ID wd:type="WID">041d606550cc1069b52bb681b8839b94</wd:ID>
+											<wd:ID wd:type="Communication_Usage_Behavior_Tenanted_ID">COMMUNICATION_USAGE_BEHAVIOR_TENANTED-6-9
+											</wd:ID>
+										</wd:Use_For_Tenanted_Reference>
+									</wd:Usage_Data>
+									<wd:Address_Reference wd:Descriptor="ADDRESS_REFERENCE-4-640">
+										<wd:ID wd:type="WID">db39b882ec495daed85c9f94876283</wd:ID>
+										<wd:ID wd:type="Address_ID">ADDRESS_REFERENCE-4-640</wd:ID>
+									</wd:Address_Reference>
+								</wd:Address_Data>
+							</wd:Business_Site_Summary_Data>
+							<wd:Payroll_Interface_Processing_Data>
+								<wd:Effective_Date>2000-01-01-08:00</wd:Effective_Date>
+								<wd:Pay_Rate_Type_Reference
+									wd:Descriptor="Salaried">
+									<wd:ID wd:type="WID">bbecf03d42c34e34a6e084b2d271b88b</wd:ID>
+									<wd:ID wd:type="Pay_Rate_Type_ID">Salary</wd:ID>
+								</wd:Pay_Rate_Type_Reference>
+								<wd:Frequency_Reference wd:Descriptor="Monthly">
+									<wd:ID wd:type="WID">617115491999471a992de3106ae2b1f4</wd:ID>
+									<wd:ID wd:type="Frequency_ID">Monthly</wd:ID>
+								</wd:Frequency_Reference>
+								<wd:Pay_Group_Reference
+									wd:Descriptor="Global Modern Services, Inc. - GMS&gt; Pay Group 1">
+									<wd:ID wd:type="WID">dd37333536334f2c9622b0aaaa1e5172</wd:ID>
+									<wd:ID wd:type="Ext_Pay_Group_ID" wd:parent_type="External_Payroll_Entity_ID"
+										wd:parent_id="GMS">1</wd:ID>
+									<wd:ID wd:type="External_Pay_Group_ID">589.1</wd:ID>
+								</wd:Pay_Group_Reference>
+								<wd:Payroll_Entity_Reference
+									wd:Descriptor="Global Modern Services, Inc. - GMS">
+									<wd:ID wd:type="WID">012f6cfbeac64976b1320dafcfe848fe</wd:ID>
+									<wd:ID wd:type="External_Payroll_Entity_ID">GMS</wd:ID>
+								</wd:Payroll_Entity_Reference>
+								<wd:External_Employee_Type_Reference
+									wd:Descriptor="Direct">
+									<wd:ID wd:type="WID">673f859c593949c18655aaaaa3a8e790</wd:ID>
+									<wd:ID wd:type="EmployeeType">Direct</wd:ID>
+									<wd:ID wd:type="External_Payroll_Employee_Type_ID">681.1</wd:ID>
+								</wd:External_Employee_Type_Reference>
+							</wd:Payroll_Interface_Processing_Data>
+							<wd:Work_Space__Reference wd:Descriptor="Office of the CHRO">
+								<wd:ID wd:type="WID">c4b80259d40043ee98ba2d456aa03f05</wd:ID>
+								<wd:ID wd:type="Location_ID">LOCATION-4-127</wd:ID>
+							</wd:Work_Space__Reference>
+							<wd:Manager_as_of_last_detected_manager_change_Reference
+								wd:Descriptor="Steve Seagal (21002)">
+								<wd:ID wd:type="WID">0e44c92412d34b01ace61e80a47aaf6d</wd:ID>
+								<wd:ID wd:type="Employee_ID">21002</wd:ID>
+							</wd:Manager_as_of_last_detected_manager_change_Reference>
+						</wd:Position_Data>
+					</wd:Worker_Job_Data>
+					<wd:Worker_Status_Data>
+						<wd:Active>1</wd:Active>
+						<wd:Active_Status_Date>2000-01-01-08:00</wd:Active_Status_Date>
+						<wd:Hire_Date>2000-01-01-08:00</wd:Hire_Date>
+						<wd:Original_Hire_Date>2000-01-01-08:00</wd:Original_Hire_Date>
+						<wd:Hire_Reason_Reference
+							wd:Descriptor="Hire Employee &gt; New Hire &gt; New Position">
+							<wd:ID wd:type="WID">f2f783ca674e4c38986b76f439e78f86</wd:ID>
+							<wd:ID wd:type="Event_Classification_Subcategory_ID">Hire_Employee_New_Hire_New_Position</wd:ID>
+							<wd:ID wd:type="General_Event_Subcategory_ID">Hire_Employee_New_Hire_New_Position</wd:ID>
+						</wd:Hire_Reason_Reference>
+						<wd:Continuous_Service_Date>2000-01-01-08:00
+						</wd:Continuous_Service_Date>
+						<wd:First_Day_of_Work>2000-01-01-08:00</wd:First_Day_of_Work>
+						<wd:Retired>0</wd:Retired>
+						<wd:Seniority_Date>2000-01-01-08:00</wd:Seniority_Date>
+						<wd:Days_Unemployed>0</wd:Days_Unemployed>
+						<wd:Months_Continuous_Prior_Employment>0
+						</wd:Months_Continuous_Prior_Employment>
+						<wd:Terminated>0</wd:Terminated>
+						<wd:Not_Eligible_for_Hire>0</wd:Not_Eligible_for_Hire>
+						<wd:Regrettable_Termination>0</wd:Regrettable_Termination>
+						<wd:Not_Eligible_for_Rehire>0</wd:Not_Eligible_for_Rehire>
+						<wd:Not_Returning>0</wd:Not_Returning>
+						<wd:Return_Unknown>0</wd:Return_Unknown>
+						<wd:Rehire>0</wd:Rehire>
+					</wd:Worker_Status_Data>
+					<wd:International_Assignment_Summary_Data>
+						<wd:Has_International_Assignment>0
+						</wd:Has_International_Assignment>
+						<wd:Home_Country_Reference
+							wd:Descriptor="United States of America">
+							<wd:ID wd:type="WID">bc33aa3152ec42d4995f4791a106ed09</wd:ID>
+							<wd:ID wd:type="ISO_3166-1_Alpha-2_Code">US</wd:ID>
+							<wd:ID wd:type="ISO_3166-1_Alpha-3_Code">USA</wd:ID>
+							<wd:ID wd:type="ISO_3166-1_Numeric-3_Code">840</wd:ID>
+						</wd:Home_Country_Reference>
+					</wd:International_Assignment_Summary_Data>
+				</wd:Employment_Data>
+				<wd:Compensation_Data>
+					<wd:Compensation_Effective_Date>2013-04-01-07:00
+					</wd:Compensation_Effective_Date>
+					<wd:Reason_Reference
+						wd:Descriptor="Merit &gt; Performance &gt; Annual Performance Appraisal">
+						<wd:ID wd:type="WID">88dda4e43367476f8c9a268efc80e65d</wd:ID>
+						<wd:ID wd:type="Event_Classification_Subcategory_ID">Merit _Performance_Annual_Focal_Review
+						</wd:ID>
+						<wd:ID wd:type="General_Event_Subcategory_ID">Merit _Performance_Annual_Focal_Review
+						</wd:ID>
+					</wd:Reason_Reference>
+					<wd:Compensation_Guidelines_Data>
+						<wd:Compensation_Package_Reference
+							wd:Descriptor="Executive Compensation Package">
+							<wd:ID wd:type="WID">d802ccf302e0497eb411ce74d9544f0a</wd:ID>
+							<wd:ID wd:type="Compensation_Package_ID">Executive_Compensation_Package</wd:ID>
+						</wd:Compensation_Package_Reference>
+						<wd:Compensation_Grade_Reference
+							wd:Descriptor="Executive Level 2">
+							<wd:ID wd:type="WID">659ff22ec6e64537a063b7bda55f4d</wd:ID>
+							<wd:ID wd:type="Compensation_Grade_ID">Executive_Level_2</wd:ID>
+						</wd:Compensation_Grade_Reference>
+						<wd:Compensation_Grade_Profile_Reference
+							wd:Descriptor="USA (Tier 1)">
+							<wd:ID wd:type="WID">8c1c6b916b134823ad248cd1927dd7ee</wd:ID>
+							<wd:ID wd:type="Compensation_Grade_Profile_ID">317.9</wd:ID>
+						</wd:Compensation_Grade_Profile_Reference>
+					</wd:Compensation_Guidelines_Data>
+					<wd:Salary_and_Hourly_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="General Salary Plan">
+							<wd:ID wd:type="WID">c4b80259d40043ee98ba2d4aaa803f05</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">SALARY_Salary_Plan</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Compensation_Element_Reference
+							wd:Descriptor="Base Pay">
+							<wd:ID wd:type="WID">998c72bbfa474cb4aa7e37f579434766</wd:ID>
+							<wd:ID wd:type="Compensation_Element_ID">Base_Pay</wd:ID>
+						</wd:Compensation_Element_Reference>
+						<wd:Amount>197491.24</wd:Amount>
+						<wd:Currency_Reference wd:Descriptor="USD">
+							<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+							<wd:ID wd:type="Currency_ID">USD</wd:ID>
+							<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+						</wd:Currency_Reference>
+						<wd:Frequency_Reference wd:Descriptor="Annual">
+							<wd:ID wd:type="WID">fbbd5f763c6c45d5a07e172b8bb8c161</wd:ID>
+							<wd:ID wd:type="Frequency_ID">Annual</wd:ID>
+						</wd:Frequency_Reference>
+						<wd:Assignment_Effective_Date>2013-04-01-07:00
+						</wd:Assignment_Effective_Date>
+					</wd:Salary_and_Hourly_Data>
+					<wd:Allowance_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Cell / Mobile Phone Allowance">
+							<wd:ID wd:type="WID">bad55199979042e0b2ce5d8a4feaf452</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">ALLOWANCE_Cell_Mobile_Phone_Allowance_USA
+							</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Compensation_Element_Reference
+							wd:Descriptor="Cell / Mobile Phone Allowance">
+							<wd:ID wd:type="WID">63de0d3adede41df98c5827a2fb5a95c</wd:ID>
+							<wd:ID wd:type="Compensation_Element_ID">Cell_Mobile_Phone_Allowance</wd:ID>
+						</wd:Compensation_Element_Reference>
+						<wd:Amount>150</wd:Amount>
+						<wd:Currency_Reference wd:Descriptor="USD">
+							<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+							<wd:ID wd:type="Currency_ID">USD</wd:ID>
+							<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+						</wd:Currency_Reference>
+						<wd:Frequency_Reference wd:Descriptor="Monthly">
+							<wd:ID wd:type="WID">617115491999471a992de3106ae2b1f4</wd:ID>
+							<wd:ID wd:type="Frequency_ID">Monthly</wd:ID>
+						</wd:Frequency_Reference>
+						<wd:Assignment_Effective_Date>2013-04-01-07:00
+						</wd:Assignment_Effective_Date>
+					</wd:Allowance_Plan_Data>
+					<wd:Allowance_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Car Allowance Plan">
+							<wd:ID wd:type="WID">a9b6fdf7aa4cb18bb9ed9bb1c388b7</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">ALLOWANCE_Car_Allowance_Plan</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Compensation_Element_Reference
+							wd:Descriptor="Car Allowance">
+							<wd:ID wd:type="WID">531ccf24cae34276856941ce87637b06</wd:ID>
+							<wd:ID wd:type="Compensation_Element_ID">Car_Allowance</wd:ID>
+						</wd:Compensation_Element_Reference>
+						<wd:Amount>500</wd:Amount>
+						<wd:Currency_Reference wd:Descriptor="USD">
+							<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+							<wd:ID wd:type="Currency_ID">USD</wd:ID>
+							<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+						</wd:Currency_Reference>
+						<wd:Frequency_Reference wd:Descriptor="Monthly">
+							<wd:ID wd:type="WID">617115491999471a992de3106ae2b1f4</wd:ID>
+							<wd:ID wd:type="Frequency_ID">Monthly</wd:ID>
+						</wd:Frequency_Reference>
+						<wd:Assignment_Effective_Date>2013-04-01-07:00
+						</wd:Assignment_Effective_Date>
+					</wd:Allowance_Plan_Data>
+					<wd:Bonus_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Executive Bonus Plan">
+							<wd:ID wd:type="WID">52da2c2f3fd942f8a58cc78f2b5ca0b9</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">BONUS_PERCENT_BASED_Executive_Bonus_Plan
+							</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Compensation_Element_Reference
+							wd:Descriptor="Incentive">
+							<wd:ID wd:type="WID">ef7691cbd08443aaa3896b682115d0b1</wd:ID>
+							<wd:ID wd:type="Compensation_Element_ID">Incentive</wd:ID>
+						</wd:Compensation_Element_Reference>
+						<wd:Individual_Target_Amount>0</wd:Individual_Target_Amount>
+						<wd:Default_Target_Amount>0.2</wd:Default_Target_Amount>
+						<wd:Individual_Target_Percent>0</wd:Individual_Target_Percent>
+						<wd:Default_Target_Percent>0.2</wd:Default_Target_Percent>
+						<wd:Guaranteed_Minimum>0</wd:Guaranteed_Minimum>
+						<wd:Currency_Reference wd:Descriptor="USD">
+							<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+							<wd:ID wd:type="Currency_ID">USD</wd:ID>
+							<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+						</wd:Currency_Reference>
+						<wd:Frequency_Reference wd:Descriptor="Quarterly">
+							<wd:ID wd:type="WID">fa61dacb69754722990e226c3c2b11e0</wd:ID>
+							<wd:ID wd:type="Frequency_ID">Quarterly</wd:ID>
+						</wd:Frequency_Reference>
+						<wd:Percent_Assigned>1</wd:Percent_Assigned>
+						<wd:Assignment_Effective_Date>2008-01-01-08:00
+						</wd:Assignment_Effective_Date>
+					</wd:Bonus_Plan_Data>
+					<wd:Merit_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Merit Plan - Exec Mgmt Team">
+							<wd:ID wd:type="WID">35c7cc9203844800a65e6cd9d49d9c08</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">MERIT_Exec_Mgmt_Team</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Individual_Target_Percent>0</wd:Individual_Target_Percent>
+						<wd:Merit_Increase_Matrix_Reference
+							wd:Descriptor="Merit Matrix by Review Rating and Quartile (Non-Weighted) - Single Target">
+							<wd:ID wd:type="WID">6cb8a5972c16496fb3fc4ff93a7b7a1d</wd:ID>
+							<wd:ID wd:type="Merit_Increase_Matrix_ID">MERIT_INCREASE_MATRIX_FOR_MERIT_PLAN-1
+							</wd:ID>
+						</wd:Merit_Increase_Matrix_Reference>
+						<wd:Guaranteed_Minimum>0</wd:Guaranteed_Minimum>
+						<wd:Assignment_Effective_Date>2000-01-01-08:00
+						</wd:Assignment_Effective_Date>
+					</wd:Merit_Plan_Data>
+					<wd:Stock_Plan_Data>
+						<wd:Compensation_Plan_Reference
+							wd:Descriptor="Stock Plan - Executive">
+							<wd:ID wd:type="WID">efb3a285bd9846bca837882218a33518</wd:ID>
+							<wd:ID wd:type="Compensation_Plan_ID">STOCK_2008_Stock_Plan_Executive</wd:ID>
+						</wd:Compensation_Plan_Reference>
+						<wd:Percent_of_Target_as_Option>0.85
+						</wd:Percent_of_Target_as_Option>
+						<wd:Percent_of_Target_as_Stock>0.15
+						</wd:Percent_of_Target_as_Stock>
+						<wd:Target_Shares>5000</wd:Target_Shares>
+						<wd:Individual_Target_Shares>0</wd:Individual_Target_Shares>
+						<wd:Vesting_Schedule_Reference
+							wd:Descriptor="4-Year, Quarterly">
+							<wd:ID wd:type="WID">5080f87184bc4a4f98b56ee3814de3</wd:ID>
+							<wd:ID wd:type="Stock_Vesting_Schedule_ID">4YQ</wd:ID>
+						</wd:Vesting_Schedule_Reference>
+						<wd:Compensation_Matrix_Reference
+							wd:Descriptor="Stock Matrix by Review Rating and Retention (Weighted) - Single Target">
+							<wd:ID wd:type="WID">34e43da9b5c346ffa9f869a98e5975d0</wd:ID>
+							<wd:ID wd:type="Merit_Increase_Matrix_ID">COMPENSATION_MATRIX_WEIGHTED_PERCENT_BASED-4-4
+							</wd:ID>
+						</wd:Compensation_Matrix_Reference>
+						<wd:Assignment_Effective_Date>2008-01-01-08:00
+						</wd:Assignment_Effective_Date>
+					</wd:Stock_Plan_Data>
+					<wd:Employee_Compensation_Summary_Data>
+						<wd:Employee_Compensation_Summary_Data>
+							<wd:Total_Base_Pay>197491.24</wd:Total_Base_Pay>
+							<wd:Total_Salary_and_Allowances>205291.24
+							</wd:Total_Salary_and_Allowances>
+							<wd:Primary_Compensation_Basis>244789.49
+							</wd:Primary_Compensation_Basis>
+							<wd:Currency_Reference wd:Descriptor="USD">
+								<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+								<wd:ID wd:type="Currency_ID">USD</wd:ID>
+								<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+							</wd:Currency_Reference>
+							<wd:Frequency_Reference wd:Descriptor="Annual">
+								<wd:ID wd:type="WID">fbbd5f763c6c45d5a07e172b8bb8c161</wd:ID>
+								<wd:ID wd:type="Frequency_ID">Annual</wd:ID>
+							</wd:Frequency_Reference>
+						</wd:Employee_Compensation_Summary_Data>
+						<wd:Annualized_Summary_Data>
+							<wd:Total_Base_Pay>197491.24</wd:Total_Base_Pay>
+							<wd:Total_Salary_and_Allowances>205291.24
+							</wd:Total_Salary_and_Allowances>
+							<wd:Primary_Compensation_Basis>244789.49
+							</wd:Primary_Compensation_Basis>
+							<wd:Currency_Reference wd:Descriptor="USD">
+								<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+								<wd:ID wd:type="Currency_ID">USD</wd:ID>
+								<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+							</wd:Currency_Reference>
+							<wd:Frequency_Reference wd:Descriptor="Annual">
+								<wd:ID wd:type="WID">fbbd5f763c6c45d5a07e172b8bb8c161</wd:ID>
+								<wd:ID wd:type="Frequency_ID">Annual</wd:ID>
+							</wd:Frequency_Reference>
+						</wd:Annualized_Summary_Data>
+						<wd:Summary_Data_in_Pay_Group_Frequency>
+							<wd:Total_Base_Pay>16457.6</wd:Total_Base_Pay>
+							<wd:Total_Salary_and_Allowances>17107.6
+							</wd:Total_Salary_and_Allowances>
+							<wd:Primary_Compensation_Basis>20399.12
+							</wd:Primary_Compensation_Basis>
+							<wd:Currency_Reference wd:Descriptor="USD">
+								<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+								<wd:ID wd:type="Currency_ID">USD</wd:ID>
+								<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+							</wd:Currency_Reference>
+							<wd:Frequency_Reference wd:Descriptor="Monthly">
+								<wd:ID wd:type="WID">617115491999471a992de3106ae2b1f4</wd:ID>
+								<wd:ID wd:type="Frequency_ID">Monthly</wd:ID>
+							</wd:Frequency_Reference>
+						</wd:Summary_Data_in_Pay_Group_Frequency>
+						<wd:Annualized_in_Reporting_Currency_Summary_Data>
+							<wd:Total_Base_Pay>197491.24</wd:Total_Base_Pay>
+							<wd:Total_Salary_and_Allowances>205291.24
+							</wd:Total_Salary_and_Allowances>
+							<wd:Primary_Compensation_Basis>244789.49
+							</wd:Primary_Compensation_Basis>
+							<wd:Currency_Reference wd:Descriptor="USD">
+								<wd:ID wd:type="WID">9e996ffdd3e14da0ba7275d5400bafd4</wd:ID>
+								<wd:ID wd:type="Currency_ID">USD</wd:ID>
+								<wd:ID wd:type="Currency_Numeric_Code">840</wd:ID>
+							</wd:Currency_Reference>
+							<wd:Frequency_Reference wd:Descriptor="Annual">
+								<wd:ID wd:type="WID">fbbd5f763c6c45d5a07e172b8bb8c161</wd:ID>
+								<wd:ID wd:type="Frequency_ID">Annual</wd:ID>
+							</wd:Frequency_Reference>
+						</wd:Annualized_in_Reporting_Currency_Summary_Data>
+					</wd:Employee_Compensation_Summary_Data>
+				</wd:Compensation_Data>
+			</wd:Worker_Data>
+		</wd:Worker>
+	</wd:Response_Data>
+</wd:Get_Workers_Response>
