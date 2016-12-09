@@ -48,25 +48,31 @@ http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/
 		description="Test">
         <mock:when messageProcessor=".*:.*" doc:name="Mock Hire Employee in Workday">
             <mock:with-attributes>
-                <mock:with-attribute name="doc:name" whereValue="#['Get Workers from Workday']"/>
+                <mock:with-attribute name="doc:name" whereValue="#['Hire Employee in Workday']"/>
             </mock:with-attributes>
-            <mock:then-return payload="#[]"/>
         </mock:when>
         <mock:when messageProcessor=".*:.*" doc:name="Mock Get Id from Hire Employee response">
             <mock:with-attributes>
                 <mock:with-attribute name="doc:name" whereValue="#['Get Id from Hire Employee response']"/>
             </mock:with-attributes>
-            <mock:then-return payload="33333"/>
+            <mock:then-return payload="#[[&quot;ID&quot;:&quot;33333&quot;]]"/>
         </mock:when>
         <set-payload value="#[getResource('testData/newEmployee.json').asString()]" doc:name="Set Payload"/>
 		<flow-ref name="post:/employees:application/json:system-api-config"
 			doc:name="post:/employees:application/json:system-api-config" />
+        <munit:assert-on-equals message="ID is not equal to expected" expectedValue="33333" actualValue="#[dw('payload.id')]" doc:name="Assert Equals (Expected id: &quot;33333&quot;)"/>
 	</munit:test>
 	<munit:test name="system-api-test-get:/employees/{id}:system-api-configTest"
 		description="Test">
         <mock:when messageProcessor=".*:.*" doc:name="Mock Save id">
             <mock:with-attributes>
                 <mock:with-attribute name="doc:name" whereValue="#['Save id']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[]"/>
+        </mock:when>
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Find Employee from Workday">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Find Employee from Workday']"/>
             </mock:with-attributes>
             <mock:then-return payload="#[]"/>
         </mock:when>
@@ -78,14 +84,34 @@ http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/
 	<munit:test
 		name="system-api-test-patch:/employees/{id}:application/json:system-api-configTest"
 		description="Test">
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Find Employee from Workday">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Find Employee from Workday']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[]"/>
+        </mock:when>
 		<flow-ref name="patch:/employees/{id}:application/json:system-api-config"
 			doc:name="patch:/employees/{id}:application/json:system-api-config" />
+        <munit:assert-on-equals message="Response status is not equal to expected" expectedValue="OK" actualValue="#[payload.status]" doc:name="Assert Equals (Expected status: &quot;OK&quot;)"/>
 	</munit:test>
 	<munit:test
 		name="system-api-test-delete:/employees/{id}:system-api-configTest"
 		description="Test">
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Find Employee from Workday">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Find Employee from Workday']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[]"/>
+        </mock:when>
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Terminate Employee in Workday">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Terminate Employee in Workday']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[]"/>
+        </mock:when>
 		<flow-ref name="delete:/employees/{id}:system-api-config"
 			doc:name="delete:/employees/{id}:system-api-config" />
+        <munit:assert-on-equals message="Response status is not equal to expected" expectedValue="OK" actualValue="#[payload.status]" doc:name="Assert Equals (Expected status: &quot;OK&quot;)"/>
 	</munit:test>
 	<munit:test name="system-api-test-lookUpCountryFlowTest"
 		description="Test">
