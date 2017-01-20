@@ -50,6 +50,7 @@ http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/
             <mock:with-attributes>
                 <mock:with-attribute name="doc:name" whereValue="#['Hire Employee in Workday']"/>
             </mock:with-attributes>
+            <mock:then-return payload="#[]"/>
         </mock:when>
         <mock:when messageProcessor=".*:.*" doc:name="Mock Get Id from Hire Employee response">
             <mock:with-attributes>
@@ -70,47 +71,70 @@ http://www.mulesoft.org/schema/mule/tcp http://www.mulesoft.org/schema/mule/tcp/
             </mock:with-attributes>
             <mock:then-return payload="#[]"/>
         </mock:when>
-        <mock:when messageProcessor=".*:.*" doc:name="Mock Find Employee from Workday">
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Get Workers from Workday">
             <mock:with-attributes>
-                <mock:with-attribute name="doc:name" whereValue="#['Find Employee from Workday']"/>
+                <mock:with-attribute name="doc:name" whereValue="#['Get Workers from Workday']"/>
             </mock:with-attributes>
-            <mock:then-return payload="#[]"/>
+            <mock:then-return payload="#[getResource('testData/employees.xml').asString()]" encoding="UTF-8" mimeType="application/xml"/>
         </mock:when>
         <set-variable variableName="exampleResponse" value="#[getResource('testData/employeesResponse.json').asString()]" encoding="UTF-8" mimeType="application/json" doc:name="set exampleResponse variable"/>
         <set-variable variableName="id" value="#[dw('flowVars.exampleResponse')[0].id]" doc:name="set id variable (mock from uri params)"/>
         <flow-ref name="get:/employees/{id}:system-api-config" doc:name="get:/employees/{id}:system-api-config"/>
-        <munit:assert-on-equals message="First name of response is not equal to expected" expectedValue="#[dw('flowVars.exampleResponse')[0].firstName]" actualValue="#[dw('payload')[0].firstName]" doc:name="Assert Equals"/>
+        <munit:assert-on-equals message="First name of response is not equal to expected" expectedValue="#[dw('flowVars.exampleResponse')[0].firstName]" actualValue="#[dw('payload').firstName]" doc:name="Assert Equals"/>
 	</munit:test>
 	<munit:test
 		name="system-api-test-patch:/employees/{id}:application/json:system-api-configTest"
 		description="Test">
-        <mock:when messageProcessor=".*:.*" doc:name="Mock Find Employee from Workday">
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Get Workers from Workday">
             <mock:with-attributes>
-                <mock:with-attribute name="doc:name" whereValue="#['Find Employee from Workday']"/>
+                <mock:with-attribute name="doc:name" whereValue="#['Get Workers from Workday']"/>
+            </mock:with-attributes>
+            <mock:then-return payload="#[getResource('testData/employees.xml').asString()]" encoding="UTF-8" mimeType="application/xml"/>
+
+        </mock:when>
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Maintain Contact Information in Workday">
+            <mock:with-attributes>
+                <mock:with-attribute name="doc:name" whereValue="#['Maintain Contact Information in Workday']"/>
             </mock:with-attributes>
             <mock:then-return payload="#[]"/>
         </mock:when>
+        <set-payload value="#[getResource('testData/editEmployee.json').asString()]" doc:name="Set Payload"/>
+        <set-variable variableName="id" value="#['21001']" doc:name="set id variable (mock from uri params)"/>
 		<flow-ref name="patch:/employees/{id}:application/json:system-api-config"
 			doc:name="patch:/employees/{id}:application/json:system-api-config" />
+        <dw:transform-message doc:name="Transform Message to Java object">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+payload]]></dw:set-payload>
+        </dw:transform-message>
         <munit:assert-on-equals message="Response status is not equal to expected" expectedValue="OK" actualValue="#[payload.status]" doc:name="Assert Equals (Expected status: &quot;OK&quot;)"/>
 	</munit:test>
 	<munit:test
 		name="system-api-test-delete:/employees/{id}:system-api-configTest"
 		description="Test">
-        <mock:when messageProcessor=".*:.*" doc:name="Mock Find Employee from Workday">
+        <mock:when messageProcessor=".*:.*" doc:name="Mock Get Workers from Workday">
             <mock:with-attributes>
-                <mock:with-attribute name="doc:name" whereValue="#['Find Employee from Workday']"/>
+                <mock:with-attribute name="doc:name" whereValue="#['Get Workers from Workday']"/>
             </mock:with-attributes>
-            <mock:then-return payload="#[]"/>
+            <mock:then-return payload="#[getResource('testData/employees.xml').asString()]" encoding="UTF-8" mimeType="application/xml"/>
         </mock:when>
         <mock:when messageProcessor=".*:.*" doc:name="Mock Terminate Employee in Workday">
             <mock:with-attributes>
                 <mock:with-attribute name="doc:name" whereValue="#['Terminate Employee in Workday']"/>
             </mock:with-attributes>
             <mock:then-return payload="#[]"/>
+
         </mock:when>
+        <set-variable variableName="id" value="#['21001']" doc:name="set id variable (mock from uri params)"/>
 		<flow-ref name="delete:/employees/{id}:system-api-config"
 			doc:name="delete:/employees/{id}:system-api-config" />
+        <dw:transform-message doc:name="Transform Message to java object">
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/java
+---
+payload]]></dw:set-payload>
+        </dw:transform-message>
         <munit:assert-on-equals message="Response status is not equal to expected" expectedValue="OK" actualValue="#[payload.status]" doc:name="Assert Equals (Expected status: &quot;OK&quot;)"/>
 	</munit:test>
 	<munit:test name="system-api-test-lookUpCountryFlowTest"

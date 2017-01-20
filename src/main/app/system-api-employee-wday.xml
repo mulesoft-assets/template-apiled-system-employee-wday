@@ -292,67 +292,75 @@ payload.Hire_Employee_Event_Response.Employee_Reference]]></dw:set-payload>
     
     <flow name="get:/employees/{id}:system-api-config">
         <set-variable variableName="id" value="#[message.inboundProperties.'http.uri.params'.id]" doc:name="Save id"/>
-        <dw:transform-message doc:name="Prepare FindEmployee request">
+        <dw:transform-message doc:name="Prepare GetWorkers request">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/xml
 %namespace ns0 urn:com.workday/bsvc
 ---
 {
-	ns0#Employee_Find: {
-		ns0#Employee_ID: flowVars.id
+	ns0#Get_Workers_Request: {
+		ns0#Request_Criteria: {
+			ns0#Exclude_Inactive_Workers: true,
+			ns0#Exclude_Employees: false,
+			ns0#Exclude_Contingent_Workers: false
+		},
+		ns0#Request_References: {
+			ns0#Worker_Reference: {
+				ns0#ID @(ns0#type: "Employee_ID"): flowVars.id
+			}
+		},
+		ns0#Response_Group: {
+			ns0#Include_Reference: true,
+			ns0#Include_Personal_Information: true,
+			ns0#Include_Employment_Information: true,
+			ns0#Include_Compensation: true
+		}
 	}
-}]]></dw:set-payload>
+}
+]]></dw:set-payload>
         </dw:transform-message>
-        <wd-connector:invoke config-ref="Workday__Basic" type="Human_Resources||Find_Employee" doc:name="Find Employee from Workday"/>
-        <dw:transform-message doc:name="Get Employee ID from the response">
+        <wd-connector:invoke config-ref="Workday__Basic" type="Human_Resources||Get_Workers" doc:name="Get Workers from Workday"/>
+        <dw:transform-message doc:name="Transform Message to Java object">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/java
 ---
-payload.Employee_References.Employee_Reference.Integration_ID_Reference.ID when (payload.Employee_References != "")
-otherwise null]]></dw:set-payload>
+payload when payload.Get_Workers_Response.Response_Results.Total_Results > 0 otherwise null]]></dw:set-payload>
         </dw:transform-message>
+
 
         <choice doc:name="Does Employee exist?">
             <when expression="#[payload != null]">
-                <dw:transform-message doc:name="Prepare Get Employee request">
-                    <dw:set-payload><![CDATA[%dw 1.0
-%output application/xml
-%namespace ns0 urn:com.workday/bsvc
----
-{
-	ns0#Employee_Get: {
-		ns0#Employee_Reference: {
-			ns0#Integration_ID_Reference: {
-				ns0#ID @(ns0#System_ID: 'WD-EMPLID'): flowVars.id
-			}
-		}
-	}
-}]]></dw:set-payload>
-                </dw:transform-message>
-                <wd-connector:invoke config-ref="Workday__Basic" type="Human_Resources||Get_Employee" doc:name="Get Employee from Workday"/>
                 <dw:transform-message doc:name="Transform response to JSON output structure">
                     <dw:set-payload><![CDATA[%dw 1.0
 %output application/json
-%namespace ns0 urn:com.workday/bsvc
+
+%function getCountryName(id){
+	name: "USA" when (id == "bc33aa3152ec42d4995f4791a106ed09") otherwise "Not presented"
+}
+%function getCountryRegionName(id){
+	name: "California" when (id == "ec3d210e4240442e99a28fa70419aec5") otherwise "Not presented"
+}
 ---
-using (	personData = payload.ns0#Employee.ns0#Employee_Data.ns0#Personal_Info_Data.ns0#Person_Data,
-		employeeData = payload.ns0#Employee.ns0#Employee_Data){
+using (	personData = payload.Get_Workers_Response.Response_Data.Worker.Worker_Data.Personal_Data,
+		positionData = payload.Get_Workers_Response.Response_Data.Worker.Worker_Data.Employment_Data.Worker_Job_Data.Position_Data){
 	id: flowVars.id,
-	firstName: personData.ns0#Name_Data.ns0#First_Name,
-	lastName: personData.ns0#Name_Data.ns0#Last_Name,
-	addressLine: personData.ns0#Contact_Data.ns0#Address_Data.ns0#Address_Line,
-	city: personData.ns0#Contact_Data.ns0#Address_Data.ns0#Municipality,
-	postalCode: personData.ns0#Contact_Data.ns0#Address_Data.ns0#Postal_Code,
-	country: personData.ns0#Contact_Data.ns0#Address_Data.ns0#Country_Reference.ns0#Country_ISO_Code,
-	region: personData.ns0#Contact_Data.ns0#Address_Data.ns0#Region,
-	birthDate: personData.ns0#Biographic_Data.ns0#Date_Of_Birth,
-	phone: personData.ns0#Contact_Data.ns0#Phone_Number_Data.ns0#Phone_Number,
-	email: personData.ns0#Contact_Data.ns0#Internet_Email_Address_Data.ns0#Email_Address,
-	positionTitle: employeeData.ns0#Worker_Position_Data.ns0#Position_Title,
-	hireDate: employeeData.ns0#Worker_Status_Data.ns0#Hire_Date,
-	weeklyHours: employeeData.ns0#Worker_Position_Data.ns0#Default_Weekly_Hours
+	firstName: personData.Name_Data.Legal_Name_Data.Name_Detail_Data.First_Name,
+	lastName: personData.Name_Data.Legal_Name_Data.Name_Detail_Data.Last_Name,
+	addressLine: personData.Contact_Data.Address_Data.Address_Line_Data,
+	city: personData.Contact_Data.Address_Data.Municipality,
+	postalCode: personData.Contact_Data.Address_Data.Postal_Code,
+	country: getCountryName(personData.Contact_Data.Address_Data.Country_Reference.ID).name,
+	region: getCountryRegionName(personData.Contact_Data.Address_Data.Country_Region_Reference.ID).name,
+	birthDate: personData.Birth_Date,
+	phone: personData.Contact_Data.Phone_Data.Phone_Number,
+	email: personData.Contact_Data.Email_Address_Data.Email_Address,
+	positionTitle: positionData.Position_Title,
+	hireDate: positionData.Start_Date,
+	weeklyHours: positionData.Default_Weekly_Hours
 }]]></dw:set-payload>
                 </dw:transform-message>
+                <logger level="INFO" doc:name="Logger"/>
+
 
             </when>
             <otherwise>
@@ -371,34 +379,43 @@ using (	personData = payload.ns0#Employee.ns0#Employee_Data.ns0#Personal_Info_Da
 
             </validation:validations>
         </validation:all>
-        <dw:transform-message doc:name="Prepare FindEmployee request">
+        <dw:transform-message doc:name="Prepare GetWorkers request">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/xml
 %namespace ns0 urn:com.workday/bsvc
 ---
 {
-	ns0#Employee_Find: {
-		ns0#Employee_ID: flowVars.id
+	ns0#Get_Workers_Request: {
+		ns0#Request_Criteria: {
+			ns0#Exclude_Inactive_Workers: true,
+			ns0#Exclude_Employees: false,
+			ns0#Exclude_Contingent_Workers: false
+		},
+		ns0#Request_References: {
+			ns0#Worker_Reference: {
+				ns0#ID @(ns0#type: "Employee_ID"): flowVars.id
+			}
+		},
+		ns0#Response_Group: {
+			ns0#Include_Reference: true
+		}
 	}
-}]]></dw:set-payload>
+}
+]]></dw:set-payload>
             <dw:set-variable variableName="input"><![CDATA[%dw 1.0
 %output application/java
 ---
 payload]]></dw:set-variable>
         </dw:transform-message>
-        <wd-connector:invoke config-ref="Workday__Basic" type="Human_Resources||Find_Employee" doc:name="Find Employee from Workday"/>
-        <dw:transform-message doc:name="Get Employee ID from the response">
+        <wd-connector:invoke config-ref="Workday__Basic" type="Human_Resources||Get_Workers" doc:name="Get Workers from Workday"/>
+        <dw:transform-message doc:name="Transform Message to Java object">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/java
 ---
-payload.Employee_References.Employee_Reference.Integration_ID_Reference.ID when (payload.Employee_References != "")
-otherwise null]]></dw:set-payload>
-            <dw:set-variable variableName="employeeId"><![CDATA[%dw 1.0
-%output application/java
----
-payload.Employee_References.Employee_Reference.Integration_ID_Reference.ID when (payload.Employee_References != "")
-otherwise null]]></dw:set-variable>
+payload when payload.Get_Workers_Response.Response_Results.Total_Results > 0 otherwise null]]></dw:set-payload>
         </dw:transform-message>
+
+
         <choice doc:name="Does Employee exist?">
             <when expression="#[payload != null]">
                 <dw:transform-message doc:name="Prepare MaintainContactInformation request">
@@ -412,6 +429,7 @@ otherwise null]]></dw:set-variable>
 			ns0#Worker_Reference: {
 				ns0#ID @(ns0#type: 'Employee_ID'): flowVars.id
 			},
+			ns0#Effective_Date: now as :date,
 			ns0#Worker_Contact_Information_Data: {
 				(ns0#Address_Data: {
 					ns0#Country_Reference: {
@@ -481,25 +499,39 @@ otherwise null]]></dw:set-variable>
         
     
     <flow name="delete:/employees/{id}:system-api-config">
-        <dw:transform-message doc:name="Prepare FindEmployee request">
+        <dw:transform-message doc:name="Prepare GetWorkers request">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/xml
 %namespace ns0 urn:com.workday/bsvc
 ---
 {
-	ns0#Employee_Find: {
-		ns0#Employee_ID: flowVars.id
+	ns0#Get_Workers_Request: {
+		ns0#Request_Criteria: {
+			ns0#Exclude_Inactive_Workers: true,
+			ns0#Exclude_Employees: false,
+			ns0#Exclude_Contingent_Workers: false
+		},
+		ns0#Request_References: {
+			ns0#Worker_Reference: {
+				ns0#ID @(ns0#type: "Employee_ID"): flowVars.id
+			}
+		},
+		ns0#Response_Group: {
+			ns0#Include_Reference: true,
+			ns0#Include_Personal_Information: true
+		}
 	}
-}]]></dw:set-payload>
+}
+]]></dw:set-payload>
         </dw:transform-message>
-        <wd-connector:invoke config-ref="Workday__Basic" type="Human_Resources||Find_Employee" doc:name="Find Employee from Workday"/>
-        <dw:transform-message doc:name="Get Employee ID from the response">
+        <wd-connector:invoke config-ref="Workday__Basic" type="Human_Resources||Get_Workers" doc:name="Get Workers from Workday"/>
+        <dw:transform-message doc:name="Transform Message to Java object">
             <dw:set-payload><![CDATA[%dw 1.0
 %output application/java
 ---
-payload.Employee_References.Employee_Reference.Integration_ID_Reference.ID when (payload.Employee_References != "")
-otherwise null]]></dw:set-payload>
+payload when payload.Get_Workers_Response.Response_Results.Total_Results > 0 otherwise null]]></dw:set-payload>
         </dw:transform-message>
+
 
         <choice doc:name="Does Employee exist?">
             <when expression="#[payload != null]">
