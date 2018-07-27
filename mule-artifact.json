@@ -1,0 +1,32 @@
+{
+  "configs": [
+    "template-apiled-system-employee-wday.xml"
+  ],
+  "secureProperties": [],
+  "redeploymentEnabled": true,
+  "name": "template-apiled-system-employee-wday",
+  "minMuleVersion": "4.1.2",
+  "requiredProduct": "MULE_EE",
+  "classLoaderModelLoaderDescriptor": {
+    "id": "mule",
+    "attributes": {
+      "exportedPackages": [],
+      "exportedResources": [
+        "api\\.gitignore",
+        "api\\dataTypes\\Employees.raml",
+        "api\\dataTypes\\ErrorResponse.raml",
+        "api\\dataTypes\\SuccessResponse.raml",
+        "api\\examples\\get_employeeById_example.json",
+        "api\\examples\\get_employees_example.json",
+        "api\\examples\\post_employees_example.json",
+        "api\\examples\\put_employee_example.json",
+        "api\\template-apiled-system-employee-wday.raml",
+        "api\\traits\\trait-collection.raml"
+      ]
+    }
+  },
+  "bundleDescriptorLoader": {
+    "id": "mule",
+    "attributes": {}
+  }
+}

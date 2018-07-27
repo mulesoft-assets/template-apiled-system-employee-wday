@@ -1,0 +1,135 @@
+#%RAML 1.0
+baseUri: https://mocksvc.mulesoft.com/mocks/6eab589f-a9e9-48be-adeb-172059448965 # 
+title: Employee Workday System API
+version: v2.0
+
+types:
+  employee: !include dataTypes/Employees.raml
+  errorResponse: !include dataTypes/ErrorResponse.raml
+  successResponse: !include dataTypes/SuccessResponse.raml
+
+traits: 
+  employeeSearch: !include ./traits/trait-collection.raml
+
+/employees:
+  displayName: Employees
+  description: |
+    Working with employees:
+    * Retrieving all employees
+    * Creating employees
+  get:
+    description: |
+      Retrieve all the Employeesaccording to the filtering.
+    is: [ employeeSearch ]      
+    responses:
+      200:
+        body:
+          application/json:
+            type: employee[]
+            example: !include ./examples/get_employees_example.json
+  post:
+    description: |
+      Create a new Employee
+    body:
+      application/json:
+        type: employee
+        example: !include ./examples/post_employees_example.json
+    responses:
+      201:
+        description: Created
+        body:
+          application/json:
+            type: employee
+            example: |
+                {
+                  "id": "123456"
+                }
+                    
+      422:
+        description: Unprocessable entity
+        body:
+          application/json:
+            type: errorResponse
+            example: |
+                {
+                  "message": "Country is required."
+                }
+  /{id}:
+    displayName: Employee ID
+    description: |
+      Working with employees:
+      * Retrieving specific employee
+      * Updating specific employee
+      * Deleting specific employee
+    uriParameters:
+      id:
+        type: string | integer
+        example: "301980"
+        description: Represents the employee ID of native system
+    get:
+      description: Get Employee by ID
+      responses:
+        200:
+          body:
+            application/json:
+              type: employee
+              example: !include ./examples/get_employeeById_example.json
+        404:
+          body:
+            application/json:
+              type: errorResponse
+              example: |
+                {
+                  "message": "Resource not found"
+                }
+    patch:
+      description: Update Employee specified by ID
+      body:
+        application/json:
+          type: employee
+          example: !include ./examples/put_employee_example.json
+      responses:
+        200:
+          body:
+            application/json:
+              type: successResponse
+              example: |
+                {
+                  "status": "OK"
+                }
+        404:
+          body:
+            application/json:
+              type: errorResponse
+              example: |
+                {
+                  "message": "Resource not found"
+                }
+        422:
+          description: Unprocessable entity
+          body:
+            application/json:
+              type: errorResponse
+              example: |
+                {
+                  "message": "You have to specify the whole adress, which consists of address line, city, country, region and postal code."
+                }
+    delete:
+      description: Delete Employee specified by ID
+      responses:
+        200:
+          body:
+            application/json:
+              type: successResponse
+              example: |
+                {
+                  "status": "OK"
+                }
+        404:
+          body:
+            application/json:
+              type: errorResponse
+              example: |
+                {
+                  "message": "Resource not found"
+                }
