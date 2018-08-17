@@ -16,7 +16,6 @@
 
 	<properties>
 		<mule.validation.module.version>1.2.1</mule.validation.module.version>
-		<mule.java.module.version>1.1.1</mule.java.module.version>
 	</properties>
 
 	<dependencies>
@@ -33,13 +32,7 @@
 		<dependency>
 			<groupId>com.mulesoft.connectors</groupId>
 			<artifactId>mule-workday-connector</artifactId>
-			<version>9.2.0</version>
-			<classifier>mule-plugin</classifier>
-		</dependency>
-		<dependency>
-			<groupId>org.mule.module</groupId>
-			<artifactId>mule-java-module</artifactId>
-			<version>${mule-java-module.version}</version>
+			<version>${workday.connector.version}</version>
 			<classifier>mule-plugin</classifier>
 		</dependency>
 		<dependency>
@@ -64,6 +57,6 @@
 			<layout>default</layout>
 		</repository>
 	</repositories>
-	
+
 
 </project>

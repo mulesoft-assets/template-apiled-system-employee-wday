@@ -51,7 +51,7 @@ Look at the included self-descriptive RAML definition and the corresponding flow
 # Considerations <a name="considerations"/>
 
 To make this Anypoint Template run, there are certain preconditions that must be considered. All of them deal with the preparations, that must be made in order for all to run smoothly.
-**Failling to do so could lead to unexpected behavior of the template.**
+**Failing to do so could lead to unexpected behavior of the template.**
 
 ## Workday Considerations <a name="workdayconsiderations"/>
 There are no particular considerations for this Anypoint Template regarding Workday.
