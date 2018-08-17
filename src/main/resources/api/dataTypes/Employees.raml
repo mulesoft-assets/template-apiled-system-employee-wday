@@ -1,0 +1,39 @@
+#%RAML 1.0 DataType
+
+#This file is located at dataTypes/Employees.raml
+
+type: object
+properties:
+  id?: string | integer
+  firstName?: string
+  lastName?: string
+  addressLine?: string
+  city?: string
+  postalCode?: string
+  country:
+    type: string
+    enum: [ USA, US, UK, GBR ]
+    required: false  
+  region:
+    type: string
+    enum: [ USA-CA, Not presented, Illinois]
+    required: false
+  birthDate:
+    type: string
+    pattern: ^[0-9]{4}(-(0[1-9]|1[0-2])(-(0[0-9]|[1-2][0-9]|3[0-1])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))))$
+    example: 2000-01-01-08:00    
+    required: false
+  phone?: string
+  email?: string
+  positionTitle?: string
+  hireDate:
+    type: string
+    pattern: ^[0-9]{4}(-(0[1-9]|1[0-2])(-(0[0-9]|[1-2][0-9]|3[0-1])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))))$
+    example: 2000-01-01-08:00
+    required: false
+  weeklyHours?: string | integer
+  basePay?: string | integer
+  currency:
+    type: string
+    enum: [EUR, USD]
+    required: false
