@@ -26,6 +26,7 @@ http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mu
 			</workday:transport>
 		</workday:basic-connection>
 	</workday:config>
+	<global-property name="mule.env" value="dev" doc:name="Global Property" />
 	<configuration-properties doc:name="Configuration properties"
 		doc:id="d143cffc-cd0c-4a30-bab7-57b3cc5639b9" file="common.properties" />
 	<configuration-properties doc:name="Configuration properties"
