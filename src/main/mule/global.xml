@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+    xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:workday="http://www.mulesoft.org/schema/mule/workday"
+    xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd 
+http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/workday http://www.mulesoft.org/schema/mule/workday/current/mule-workday.xsd">
+    
+    <global-property name="mule.env" value="dev" doc:name="Global Property" />
+    
+    <configuration-properties doc:name="Configuration properties" doc:id="ba9dc659-fd2a-4a96-b3d1-c989c2f88e50" file="common.properties" />
+    <configuration-properties doc:name="Configuration properties" doc:id="1003abea-aed0-49c7-a318-ad5312429e4f" file="mule.${mule.env}.properties" />
+    
+    <validation:config name="Validation_Config" doc:name="Validation Config" doc:id="7618fd28-468b-4e5f-998c-b5eaf565369a" />
+    
+    <http:listener-config name="template-apiled-system-employee-wday-httpListenerConfig">
+        <http:listener-connection host="0.0.0.0" port="${http.port}" />
+    </http:listener-config>
+    
+    <apikit:config name="template-apiled-system-employee-wday-config" raml="template-apiled-system-employee-wday.raml" outboundHeadersMapName="outboundHeaders"
+        httpStatusVarName="httpStatus" />
+        
+    <workday:config-version-30-config name="Workday_Config" doc:name="Workday Config version 30" doc:id="bb8d6a94-24ea-4a86-975a-cd3bad2e4727">
+        <workday:basic-authentication-api-v30-connection username="${wday.username}" password="${wday.password}"
+            tenantName="${wday.tenant}" hostName="${wday.host}" responseTimeout="${wday.responseTimeout}" />
+    </workday:config-version-30-config>
+</mule>

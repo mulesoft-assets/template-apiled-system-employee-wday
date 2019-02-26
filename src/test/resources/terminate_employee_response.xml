@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wd:Terminate_Employee_Event_Response xmlns:wd="urn:com.workday/bsvc" wd:version="v30.0">
+    <wd:Event_Reference>
+        <wd:ID wd:type="WID">00000000000000000000000000000000</wd:ID>
+    </wd:Event_Reference>
+</wd:Terminate_Employee_Event_Response>

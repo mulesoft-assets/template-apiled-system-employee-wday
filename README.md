@@ -42,11 +42,11 @@ Retrieves an Employee based on the given Workday native identifier.
 Updates an Employee with the data in the HTTP request.
 
 ### DELETE /employees/{id}
-Deletes specific Employee based on the given Workday native identifier. 
+Deletes specific Employee based on the given Workday native identifier.
 
 
 Look at the included self-descriptive RAML definition and the corresponding flows to learn more about the flows.
- 
+
 
 # Considerations <a name="considerations"/>
 
@@ -72,7 +72,7 @@ First thing to know if you are a newcomer to Mule is where to get the tools.
 
 
 ### Importing a template into Studio
-Mule Studio offers several ways to import a project into the workspace, for instance: 
+Mule Studio offers several ways to import a project into the workspace, for instance:
 
 + Anypoint Studio Project from File System
 + Packaged mule application (.jar)
@@ -85,7 +85,7 @@ Once you have imported you template into Anypoint Studio you need to follow thes
 
 + Locate the properties file `mule.dev.properties`, in src/main/resources
 + Complete all the properties required as per the examples in the section [Properties to be configured](#propertiestobeconfigured)
-+ Once that is done, right click on you template project folder 
++ Once that is done, right click on you template project folder
 + Hover you mouse over `"Run as"`
 + Click on  `"Mule Application"`
 + Inside the dialog, select Environment and set the variable `"mule.env"` to the value `"dev"`
@@ -93,7 +93,7 @@ Once you have imported you template into Anypoint Studio you need to follow thes
 
 
 ### Running on Mule ESB stand alone <a name="runonmuleesbstandalone"/>
-Complete all properties in one of the property files, for example in [mule.prod.properties] (../master/src/main/resources/mule.prod.properties) and run your app with the corresponding environment variable to use it. To follow the example, this will be `mule.env=prod`. 
+Complete all properties in one of the property files, for example in [mule.prod.properties] (../master/src/main/resources/mule.prod.properties) and run your app with the corresponding environment variable to use it. To follow the example, this will be `mule.env=prod`.
 
 
 ## Running on CloudHub <a name="runoncloudhub"/>
@@ -111,13 +111,19 @@ In order to use this Mule template you need to configure properties (Credentials
 **Common Configuration**
 
 + http.port `9090`
-		
+
 **Workday Connector Configuration**
 
 + wday.username `user`
 + wday.tenant `tenant_1`
 + wday.password `secret`
 + wday.host `hostname.workday.com`
++ wday.responseTimeout `25000`
+
++ wday.organization.reference.id `organization_ref_id`
++ wday.job.profile.reference.id `job_profile_ref_id`
++ wday.position.location.reference.id `position_location_ref_id`
++ wday.terminate.employee.primary.reason.id `reason_id`
 
 
 # Customize It!<a name="customizeit"/>
@@ -136,6 +142,3 @@ A functional aspect of this template implemented in this XML is to create or upd
 Configuration for Connectors and [Configuration Properties](http://www.mulesoft.org/documentation/display/current/Configuring+Properties) are also set in this file. **Even though you can change the configuration here, all parameters that can be modified here are in properties file, and this is the recommended place to do it so.** Of course if you want to do core changes to the logic you will probably need to modify this file.
 
 In the visual editor they can be found on the *Global Element* tab.
-
-
-

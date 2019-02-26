@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:java="http://www.mulesoft.org/schema/mule/java" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+    xmlns:workday="http://www.mulesoft.org/schema/mule/workday" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core"
+    xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
+http://www.mulesoft.org/schema/mule/workday http://www.mulesoft.org/schema/mule/workday/current/mule-workday.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/java http://www.mulesoft.org/schema/mule/java/current/mule-java.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+
+    <flow name="system-api-main">
+        <http:listener config-ref="template-apiled-system-employee-wday-httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="template-apiled-system-employee-wday-config" />
+        <error-handler>
+            <on-error-propagate type="APIKIT:BAD_REQUEST">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+                    doc:id="cbb0cb1e-911d-454a-8dd7-7f8188524f6f" doc:name="400">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{message: "Bad request"}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+                    doc:id="75ddc9dc-9487-41d2-b6e5-3aa1652fd33a" doc:name="404">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+							output application/json
+							---
+							{message: "Resource not found"}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[404]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:METHOD_NOT_ALLOWED">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+                    doc:id="12829396-e03b-4458-b19c-94dcea34ccd8" doc:name="405">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+							output application/json
+							---
+							{message: "Method not allowed"}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[405]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:NOT_ACCEPTABLE">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+                    doc:id="b5da9600-cc9e-4141-bbd2-d676457fff6b" doc:name="406">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+							output application/json
+							---
+							{message: "Not acceptable"}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[406]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:UNSUPPORTED_MEDIA_TYPE">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+                    doc:id="a5bf9289-a061-4d40-ae67-3199db55e4fb" doc:name="415">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+							output application/json
+							---
+							{message: "Unsupported media type"}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[415]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+            <on-error-propagate type="APIKIT:NOT_IMPLEMENTED">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+                    doc:id="e1e3aca7-8172-450e-90bd-38cd87567fa7" doc:name="501">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+								output application/json
+								---
+								{message: "Not Implemented"}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[501]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+        </error-handler>
+    </flow>
+    <flow name="api-console">
+        <http:listener config-ref="template-apiled-system-employee-wday-httpListenerConfig" path="/console/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="template-apiled-system-employee-wday-config" />
+        <error-handler>
+            <on-error-propagate type="APIKIT:NOT_FOUND">
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+                    doc:id="7998e510-b40b-4b95-a579-c5ac5318f381" doc:name="404">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+							output application/json
+							---
+							{message: "Resource not found"}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[404]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </on-error-propagate>
+        </error-handler>
+    </flow>
+    <flow name="get:\employees:template-apiled-system-employee-wday-config">
+        <flow-ref doc:name="Call getEmployeesSubFlow" doc:id="d1d247ea-5c57-4042-8603-4b03f11dc92e" name="getEmployeesSubFlow" />
+    </flow>
+    <flow name="post:\employees:application\json:template-apiled-system-employee-wday-config">
+        <flow-ref doc:name="Call postEmployeeSubFlow" doc:id="89802d7d-d29e-473a-b5a8-b45fed637b20" name="postEmployeeSubFlow" />
+    </flow>
+    <flow name="get:\employees\(id):template-apiled-system-employee-wday-config">
+        <flow-ref doc:name="Call getEmployeeByIdSubFlow" doc:id="7b8ceffc-7bde-4b07-9801-46098d5ab2af" name="getEmployeeByIdSubFlow" />
+    </flow>
+    <flow name="patch:\employees\(id):application\json:template-apiled-system-employee-wday-config">
+        <flow-ref doc:name="Call patchEmployeeSubFlow" doc:id="14ad8db5-f04b-4b55-93ea-21401549f982" name="patchEmployeeSubFlow" />
+    </flow>
+    <flow name="delete:\employees\(id):template-apiled-system-employee-wday-config">
+		<flow-ref doc:name="Call deleteEmployeeSubFlow" doc:id="a1ca7fc9-a3c3-4a53-9488-9389ff21c9c0" name="deleteEmployeeSubFlow"/>
+    </flow>
+</mule>

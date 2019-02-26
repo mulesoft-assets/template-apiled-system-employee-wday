@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools" xmlns="http://www.mulesoft.org/schema/mule/core"
+    xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:workday="http://www.mulesoft.org/schema/mule/workday"
+    xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/workday http://www.mulesoft.org/schema/mule/workday/current/mule-workday.xsd">
+    <munit:config name="test-suite.xml" />
+    <configuration-properties doc:name="Configuration properties" doc:id="04309d04-31e3-496f-b1bb-fafdbbfe65d8" file="mule.test.properties" />
+    <http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="49023d1c-3115-4442-96ac-4f4947ac8402" basePath="/api">
+        <http:request-connection host="0.0.0.0" port="${http.port}" />
+    </http:request-config>
+    <munit:test name="getEmployeesTest" description="MUnit Test" doc:id="95ba8169-74f5-493a-9dc6-377b6d7fea52">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="system-api-main" />
+            <munit:enable-flow-source value="get:\employees:template-apiled-system-employee-wday-config" />
+        </munit:enable-flow-sources>
+        <munit:execution>
+            <http:request method="GET" doc:name="GET employees" doc:id="4a9de830-3cb1-415c-82bf-eec4d99f22ad" config-ref="HTTP_Request_configuration" path="/employees"
+                responseTimeout="60000">
+                <http:query-params><![CDATA[#[output application/java
+---
+{
+	"pageSize" : 3
+}]]]></http:query-params>
+            </http:request>
+        </munit:execution>
+        <munit:validation>
+            <munit-tools:assert-that doc:name="Assert that http.status == 200" doc:id="ed4e5de6-aebb-42bb-b094-6e903133db5d" expression="#[attributes.statusCode]"
+                is="#[MunitTools::equalTo(200)]" message="The HTTP Status code is not correct!" />
+            <munit-tools:assert-that doc:name="Assert that number of records is correct" doc:id="1e7c09d3-296a-4511-b062-609f58dc7d16" expression="#[sizeOf(payload)]"
+                is='#[MunitTools::equalTo(3)]' message="Number of records is incorrect!" />
+        </munit:validation>
+    </munit:test>
+    <munit:test name="postEmployeeTest" description="MUnit Test" doc:id="6c9504f0-4a10-4902-9429-8ddabe9dcd2d">
+        <munit:enable-flow-sources>
+            <munit:enable-flow-source value="system-api-main" />
+            <munit:enable-flow-source value="post:\employees:application\json:template-apiled-system-employee-wday-config" />
+        </munit:enable-flow-sources>
+        <munit:behavior>
+            <munit-tools:mock-when doc:name='Mock "Hire Employee in Workday"' doc:id="070797d1-2cc4-40eb-9904-a43cc8efb6c7" processor="workday:staffing">
+                <munit-tools:with-attributes>
+                    <munit-tools:with-attribute attributeName="doc:name" whereValue="Hire Employee in Workday" />
+                </munit-tools:with-attributes>
+                <munit-tools:then-return>
+                    <munit-tools:payload value="#[MunitTools::getResourceAsString('hire_employee_response.xml')]" mediaType="application/xml" />
+                </munit-tools:then-return>
+            </munit-tools:mock-when>
+        </munit:behavior>
+		<munit:execution >
+			<ee:transform doc:name="Prepare input data" doc:id="bed071ab-a80a-4fb9-9237-a085248baf5e">
+			<ee:message>
+				<ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"firstName": "John",
+	"lastName": "Smith",
+	"addressLine": "MainStreet 1",
+	"city": "Beverly Hills",
+	"postalCode": "90210",
+	"country": "USA",
+	"region": "USA-CA",
+	"birthDate": "1988-01-01-08:00",
+	"phone": "6534-555",
+	"email": "john.smith.test@noname.com",
+	"positionTitle": "Software Engineer",
+	"weeklyHours": "160",
+	"basePay": "4000",
+	"currency": "USD"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+			<http:request method="POST" doc:name="POST employee" doc:id="20d6d1d3-7a3d-485a-888c-562e9315c3f7" config-ref="HTTP_Request_configuration" path="/employees" responseTimeout="60000"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that http.status == 201" doc:id="fdc5c5fb-68ba-4a0b-ae3f-7ee4ed7e7037" expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(201)]" message="The HTTP Status code is not correct!" />
+			<munit-tools:assert-that doc:name="Assert that response is correct" doc:id="d1b054a6-7ad2-495b-b81b-8376faf6c7c8" expression="#[payload.id]" is='#[MunitTools::equalTo("00000")]' message="Response is incorrect"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="getEmployeeByIdTest" description="MUnit Test" doc:id="e72e37d0-9977-425e-8d25-90d708683ff4">
+		<munit:enable-flow-sources >
+			<munit:enable-flow-source value="system-api-main" />
+			<munit:enable-flow-source value="get:\employees\(id):template-apiled-system-employee-wday-config" />
+		</munit:enable-flow-sources>
+		<munit:execution>
+			<http:request method="GET" doc:name="GET employee by Id" doc:id="025e862c-d174-4198-a7d3-7bd4ae32d998" config-ref="HTTP_Request_configuration" path="/employees/{id}" responseTimeout="60000">
+				<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : p('test.employee.id')
+}]]]></http:uri-params>
+			</http:request>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that http.status == 200" doc:id="343ce9a4-fe4e-434f-be29-0c30a85f16fc" expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(200)]" message="The HTTP Status code is not correct!" />
+		</munit:validation>
+	</munit:test>
+    <munit:test name="getEmployeeById_NotFoundTest" description="MUnit Test" doc:id="ec41df65-0e48-4b82-b551-b6230255de89" expectedErrorType="HTTP:NOT_FOUND">
+		<munit:enable-flow-sources >
+			<munit:enable-flow-source value="system-api-main" />
+			<munit:enable-flow-source value="getEmployeeByIdSubFlow" />
+		</munit:enable-flow-sources>
+		<munit:execution >
+			<http:request method="GET" doc:name="GET employee by Id" doc:id="44b3ee61-0bc5-4e5b-9a9f-0ac993c07e46" config-ref="HTTP_Request_configuration" path="/employees/{id}" responseTimeout="60000" >
+				<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : "30000"
+}]]]></http:uri-params>
+			</http:request>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that http.status == 404" doc:id="20af25da-12e7-4daf-a7d6-b9decb5c50bc" expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(404)]" message="The HTTP Status code is not correct!" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="patchEmployeeByIdTest" description="MUnit Test" doc:id="0bbc70d9-9a95-427f-94e2-c37192d672c3">
+		<munit:enable-flow-sources >
+			<munit:enable-flow-source value="system-api-main" />
+			<munit:enable-flow-source value="patch:\employees\(id):application\json:template-apiled-system-employee-wday-config" />
+            <munit:enable-flow-source value="get:\employees\(id):template-apiled-system-employee-wday-config" />
+			<munit:enable-flow-source value="lookUpCountryRegionFlow" />
+			<munit:enable-flow-source value="lookUpCountryFlow" />
+		</munit:enable-flow-sources>
+		<munit:execution >
+			<ee:transform doc:name="Prepare input data" doc:id="482800c5-bc76-4231-8df3-3c69b5f107d5" >
+				<ee:message >
+				</ee:message>
+				<ee:variables >
+					<ee:set-variable variableName="inputData" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"addressLine": "MainStreet 1",
+	"city": "Beverly Hills",
+	"postalCode": "90210",
+	"country": "USA",
+	"region": "USA-CA",
+	"phone": "6534-555",
+	"email": "john.smith" ++ randomInt(1000) ++"@noname.com"
+}]]></ee:set-variable>
+				</ee:variables>
+			</ee:transform>
+			<http:request method="PATCH" doc:name="PATCH employee" doc:id="86038bb5-a82b-4ba9-b96d-04f15971c972" config-ref="HTTP_Request_configuration" path="/employees/{id}" responseTimeout="60000">
+				<http:body ><![CDATA[#[vars.inputData]]]></http:body>
+				<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : p('test.employee.id')
+}]]]></http:uri-params>
+			</http:request>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that http.status == 200" doc:id="1c281a4b-91d8-4675-a321-46c57f36f5ef" expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(200)]" message="The HTTP Status code is not correct!" />
+			<http:request method="GET" doc:name="GET employee by Id" doc:id="658be518-12b7-4def-853a-594c155fd1d1" config-ref="HTTP_Request_configuration" path="/employees/{id}" responseTimeout="60000" >
+				<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : p('test.employee.id')
+}]]]></http:uri-params>
+			</http:request>
+			<munit-tools:assert-that doc:name="Assert that data was updated" doc:id="e5a21bef-49f2-48a8-b449-3c269b98c7a9" expression="#[payload.email]" is="#[MunitTools::equalTo(vars.inputData.email)]" message="Data was not updated"/>
+		</munit:validation>
+	</munit:test>
+    <munit:test name="patchEmployeeById_NotFoundTest" description="MUnit Test" doc:id="cbdcafcd-f407-438e-97eb-84f0fbb8d32f" expectedErrorType="HTTP:NOT_FOUND">
+        <munit:enable-flow-sources >
+			<munit:enable-flow-source value="system-api-main" />
+			<munit:enable-flow-source value="patch:\employees\(id):application\json:template-apiled-system-employee-wday-config" />
+		</munit:enable-flow-sources>
+		<munit:execution >
+            <ee:transform doc:name="Prepare test data" doc:id="2c6b4fb9-73b1-47eb-ae45-094ef56b7088" >
+                <ee:message >
+                </ee:message>
+                <ee:variables >
+                    <ee:set-variable variableName="inputData" ><![CDATA[%dw 2.0
+output application/json
+---
+{
+    "addressLine": "MainStreet 1",
+    "city": "Beverly Hills",
+    "postalCode": "90210",
+    "country": "USA",
+    "region": "USA-CA",
+    "phone": "6534-555",
+    "email": "john.smith" ++ randomInt(1000) ++"@noname.com"
+}]]></ee:set-variable>
+                </ee:variables>
+            </ee:transform>
+            <http:request method="PATCH" doc:name="PATCH employee" doc:id="5b728b34-18ea-4c1f-9352-48ac1e3caac0" config-ref="HTTP_Request_configuration" path="/employees/{id}" responseTimeout="60000">
+                <http:body ><![CDATA[#[vars.inputData]]]></http:body>
+                <http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : "30000"
+}]]]></http:uri-params>
+            </http:request>
+        </munit:execution>
+        <munit:validation >
+            <munit-tools:assert-that doc:name="Assert that http.status == 404" doc:id="f2e74fd2-3d29-4ab0-a900-ebf8b9b0feff" expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(404)]" message="The HTTP Status code is not correct!" />
+        </munit:validation>
+    </munit:test>
+	<munit:test name="deleteEmployeeByIdTest" description="MUnit Test" doc:id="f2d290df-28e0-4109-839d-d9f5d9788645">
+		<munit:enable-flow-sources >
+			<munit:enable-flow-source value="system-api-main" />
+			<munit:enable-flow-source value="delete:\employees\(id):template-apiled-system-employee-wday-config" />
+		</munit:enable-flow-sources>
+		<munit:behavior >
+			<munit-tools:mock-when doc:name='Mock "Terminate Employee in Workday"' doc:id="096209bb-c8d1-4926-8d11-3d82be80dfb5" processor="workday:staffing">
+				<munit-tools:with-attributes >
+					<munit-tools:with-attribute attributeName="doc:name" whereValue="Terminate Employee in Workday" />
+				</munit-tools:with-attributes>
+				<munit-tools:then-return >
+					<munit-tools:payload value="#[MunitTools::getResourceAsString('terminate_employee_response.xml')]" mediaType="application/xml" />
+				</munit-tools:then-return>
+			</munit-tools:mock-when>
+		</munit:behavior>
+		<munit:execution >
+			<http:request method="DELETE" doc:name="DELETE employee" doc:id="683c5c58-ef7a-48a0-93bd-4e519ce18ed3" config-ref="HTTP_Request_configuration" path="/employees/{id}" responseTimeout="60000">
+				<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : p('test.employee.id')
+}]]]></http:uri-params>
+			</http:request>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that http.status == 200" doc:id="21ed0e8a-fb25-47fe-95ba-e7c3a2901544" expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(200)]" message="The HTTP Status code is not correct!" />
+		</munit:validation>
+	</munit:test>
+    <munit:test name="deleteEmployeeById_NotFoundTest" description="MUnit Test" doc:id="7bca4f80-e5f2-4b0a-9b17-197685bc4492" expectedErrorType="HTTP:NOT_FOUND">
+		<munit:enable-flow-sources>
+		    <munit:enable-flow-source value="delete:\employees\(id):template-apiled-system-employee-wday-config" />
+		    <munit:enable-flow-source value="system-api-main" />
+		</munit:enable-flow-sources>
+		<munit:execution >
+			<http:request method="DELETE" doc:name="DELETE employee" doc:id="b9ab6c2e-bca0-45c7-989d-f907ebf8d3c4" config-ref="HTTP_Request_configuration" path="/employees/{id}" responseTimeout="60000" >
+				<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"id" : "30000"
+}]]]></http:uri-params>
+			</http:request>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that http.status == 404" doc:id="d0f1ccd8-fd5e-4c1a-ab99-3f9b37b1e10e" expression="#[attributes.statusCode]" is="#[MunitTools::equalTo(404)]" message="The HTTP Status code is not correct!" />
+		</munit:validation>
+	</munit:test>
+</mule>
