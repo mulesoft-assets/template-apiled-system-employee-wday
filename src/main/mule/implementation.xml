@@ -1,0 +1,686 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns="http://www.mulesoft.org/schema/mule/core"
+    xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:workday="http://www.mulesoft.org/schema/mule/workday"
+    xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd 
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/workday http://www.mulesoft.org/schema/mule/workday/current/mule-workday.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd">
+    <sub-flow name="getEmployeesSubFlow" doc:id="a40bfd41-43b3-4fff-9882-003a8f456089">
+        <set-variable value="#[attributes.queryParams]" doc:name="Save queryParams" doc:id="5cc84a47-8d9a-409c-8789-04148f399e66" variableName="queryParams" />
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+            doc:id="3475b2e4-ef11-4c23-bad4-c37b5106b2e6" doc:name="Prepare GetWorkers request">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+ns ns0 urn:com.workday/bsvc
+---
+{
+    ns0#Get_Workers_Request: {
+        ns0#Request_Criteria: {
+            (ns0#Transaction_Log_Criteria_Data: {
+                ns0#Transaction_Date_Range_Data: {
+                    ns0#Updated_From: attributes.queryParams.modifiedAfter,
+                    ns0#Updated_Through: now() - |PT6S|
+                }
+            }) if (attributes.queryParams.modifiedAfter?),
+            ns0#Exclude_Inactive_Workers: true,
+            ns0#Exclude_Employees: false,
+            ns0#Exclude_Contingent_Workers: false
+        },
+        ns0#Response_Filter: {
+            ns0#Page: attributes.queryParams.page,
+            ns0#Count: attributes.queryParams.pageSize
+        },
+        ns0#Response_Group: {
+            ns0#Include_Personal_Information: true,
+            ns0#Include_Employment_Information: true,
+            ns0#Include_Compensation: true
+        }
+    }
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+
+
+        <workday:human-resources doc:name="Get Workers from Workday" doc:id="916ad9f1-38fd-49c7-acc2-96712adac0fe" config-ref="Workday_Config" operation="Get_Workers" />
+
+        <ee:transform doc:name="Transform response to JSON output structure" doc:id="13c681f2-239b-4f50-85fe-d8dfcc08e822">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+fun getCountryName(id) = {
+    name: if(id == "bc33aa3152ec42d4995f4791a106ed09") "USA" else "Not presented"
+}
+fun getCountryRegionName(id) = {
+    name: if (id == "ec3d210e4240442e99a28fa70419aec5") "California" else "Not presented"
+}
+---
+payload.Get_Workers_Response.Response_Data.*Worker map {
+    id: $.Worker_Data.Worker_ID,
+    firstName: $.Worker_Data.Personal_Data.Name_Data.Legal_Name_Data.Name_Detail_Data.First_Name,
+    lastName: $.Worker_Data.Personal_Data.Name_Data.Legal_Name_Data.Name_Detail_Data.Last_Name,
+    addressLine: $.Worker_Data.Personal_Data.Contact_Data.Address_Data.Address_Line_Data,
+    city: $.Worker_Data.Personal_Data.Contact_Data.Address_Data.Municipality,
+    postalCode: $.Worker_Data.Personal_Data.Contact_Data.Address_Data.Postal_Code,
+    country: getCountryName($.Worker_Data.Personal_Data.Contact_Data.Address_Data.Country_Reference.ID).name,
+    region: getCountryRegionName($.Worker_Data.Personal_Data.Contact_Data.Address_Data.Country_Region_Reference.ID).name,
+    birthDate: $.Worker_Data.Personal_Data.Birth_Date,
+    phone: $.Worker_Data.Personal_Data.Contact_Data.Phone_Data.Phone_Number,
+    email: $.Worker_Data.Personal_Data.Contact_Data.Email_Address_Data.Email_Address,
+    positionTitle: $.Worker_Data.Employment_Data.Worker_Job_Data.Position_Data.Position_Title,
+    hireDate: $.Worker_Data.Employment_Data.Worker_Job_Data.Position_Data.Start_Date,
+    weeklyHours: $.Worker_Data.Employment_Data.Worker_Job_Data.Position_Data.Default_Weekly_Hours
+}   ]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+
+        <ee:transform doc:name="Apply ordering" doc:id="f868eef6-fc8b-487f-b25d-7a2cf0f8307c">
+            <ee:message>
+                <ee:set-payload><![CDATA[                   %dw 2.0
+output application/java
+var orderBy_ = attributes.queryParams.orderBy
+var employees = (if (payload != null and attributes.queryParams !=null and attributes.queryParams.orderBy != null) 
+                            payload orderBy $[if ($[orderBy_] == null) null else orderBy_] default payload
+                        else payload)
+---
+if (attributes.queryParams.order !=null and lower(attributes.queryParams.order) == "desc" ) 
+                        employees[-1 to 0 ]
+                    else employees
+                        ]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <ee:transform doc:name="Transform payload into JSON output structure" doc:id="9f27ad0f-4826-44a2-b00c-e633d2b3dd4b">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+    </sub-flow>
+    <sub-flow name="postEmployeeSubFlow" doc:id="38bca073-7bb4-42e9-b1f3-17a6e1dd1920">
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+            xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+            doc:id="3b1af116-3c23-4843-98ba-f436cb72b660" doc:name="JSON to Object">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-payload>
+            </ee:message>
+            <ee:variables>
+                <ee:set-variable variableName="requestPath"><![CDATA[%dw 2.0
+output application/java
+---
+"http://" ++ attributes.headers.host ++ attributes.requestPath ++ "/" 
+]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <validation:is-not-null doc:name="firstName != null" config-ref="Validation_Config" value="#[payload.firstName]" message="First name is required." />
+        <validation:is-not-null doc:name="lastName != null" config-ref="Validation_Config" value="#[payload.lastName]" message="Last name is required." />
+        <validation:is-not-null doc:name="addressLine != null" config-ref="Validation_Config" value="#[payload.addressLine]" message="Adress line is required." />
+        <validation:is-not-null doc:name="city != null" config-ref="Validation_Config" value="#[payload.city]" message="City is required." />
+        <validation:is-not-null doc:name="country != null" config-ref="Validation_Config" value="#[payload.country]" message="Country is required." />
+        <validation:is-not-null doc:name="postalCode != null" config-ref="Validation_Config" value="#[payload.postalCode]" message="Postal code is required." />
+        <validation:is-not-null doc:name="birthDate != null" config-ref="Validation_Config" value="#[payload.birthDate]" message="Birthdate is required." />
+        <validation:is-not-null doc:name="phone != null" config-ref="Validation_Config" value="#[payload.phone]" message="Phone is required." />
+        <validation:is-not-null doc:name="email != null" config-ref="Validation_Config" value="#[payload.email]" message="Email is required." />
+        <validation:is-not-null doc:name="positionTitle != null" config-ref="Validation_Config" value="#[payload.positionTitle]" message="Position title is required." />
+        <validation:is-not-null doc:name="weeklyHours != null" config-ref="Validation_Config" value="#[payload.weeklyHours]" message="Weekly hours is required." />
+        <validation:is-not-null doc:name="basePay != null" config-ref="Validation_Config" value="#[payload.basePay]" message="Base pay is required." />
+        <validation:is-not-null doc:name="currency != null" config-ref="Validation_Config" value="#[payload.currency]" message="Currency is required." />
+        <ee:transform doc:name="Prepare HireEmployee request" doc:id="7c2e31b4-fa7d-41ef-817e-16c381d65c85">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+ns ns0 urn:com.workday/bsvc
+---
+{
+	ns0#Hire_Employee_Request: {
+		ns0#Hire_Employee_Data: {
+			ns0#Applicant_Data: {
+				ns0#Personal_Data: {
+					ns0#Name_Data: {
+						ns0#Legal_Name_Data: {
+							ns0#Name_Detail_Data: {
+								ns0#Country_Reference: {
+									ns0#ID @(ns0#"type": 'ISO_3166-1_Alpha-3_Code'): lookup("lookUpCountryFlow", payload.country)
+								},
+								ns0#First_Name: payload.firstName,
+								ns0#Last_Name: payload.lastName
+							}
+						}
+					},
+					ns0#Birth_Date: payload.birthDate,
+					ns0#Contact_Data: {
+						ns0#Address_Data @(ns0#Effective_Date: now() as Date): {
+							ns0#Country_Reference: {
+								ns0#ID @(ns0#"type": 'ISO_3166-1_Alpha-3_Code'): lookup("lookUpCountryFlow", payload.country)
+							},
+							ns0#Address_Line_Data @(ns0#Type: 'ADDRESS_LINE_1'): payload.addressLine,
+							ns0#Municipality: payload.city,
+							(ns0#Country_Region_Reference: {
+								ns0#ID @(ns0#"type": 'Country_Region_ID'): lookup("lookUpCountryRegionFlow", payload.region)
+							}) if (payload.region != null and payload.region != "Not presented"),
+							ns0#Postal_Code: payload.postalCode,
+							ns0#Usage_Data: {
+								ns0#Type_Data @(ns0#Primary: true): {
+									ns0#Type_Reference: {
+										ns0#ID @(ns0#"type": 'Communication_Usage_Type_ID'): 'HOME'
+									}
+								}
+							}
+						},
+						ns0#Phone_Data: {
+							ns0#International_Phone_Code: '1',
+							ns0#Phone_Number: payload.phone,
+							ns0#Phone_Device_Type_Reference: {
+								ns0#ID @(ns0#"type": 'Phone_Device_Type_ID'): '1063.5'
+							},
+							ns0#Usage_Data @(ns0#Public: true): {
+								ns0#Type_Data @(ns0#Primary: true): {
+									ns0#Type_Reference: {
+										ns0#ID @(ns0#"type": 'Communication_Usage_Type_ID'): 'HOME'
+									}
+								}
+							}
+						},
+						ns0#Email_Address_Data: {
+							ns0#Email_Address: payload.email,
+							ns0#Usage_Data @(ns0#Public: true): {
+								ns0#Type_Data @(ns0#Primary: true): {
+									ns0#Type_Reference: {
+										ns0#ID @(ns0#"type": 'Communication_Usage_Type_ID'): 'HOME'
+									}
+								}
+							}
+						}
+					}
+				}
+			},
+			ns0#Organization_Reference: {
+				ns0#ID @(ns0#"type": 'Organization_Reference_ID'): p("wday.organization.reference.id")
+			},
+			ns0#Hire_Date: now() as Date,
+			ns0#Hire_Employee_Event_Data: {
+				ns0#Employee_Type_Reference: {
+					ns0#ID @(ns0#"type": 'Employee_Type_ID'): 'Regular'
+				},
+				ns0#Position_Details: {
+					ns0#Job_Profile_Reference: {
+						ns0#ID @(ns0#"type": 'Job_Profile_ID'): p("wday.job.profile.reference.id")
+					},
+					ns0#Position_Title: payload.positionTitle,
+					ns0#Location_Reference: {
+						ns0#ID @(ns0#"type": 'Location_ID'): p("wday.position.location.reference.id")
+					},
+					ns0#Position_Time_Type_Reference: {
+						ns0#ID @(ns0#"type": 'Position_Time_Type_ID'): 'Full_time'
+					},
+					ns0#Default_Hours: payload.weeklyHours,
+					ns0#Pay_Rate_Type_Reference: {
+						ns0#ID @(ns0#"type": 'Pay_Rate_Type_ID'): 'Salary'
+					}
+				}
+			},
+			ns0#Propose_Compensation_for_Hire_Sub_Process: {
+				ns0#Propose_Compensation_for_Hire_Data: {
+					ns0#Primary_Compensation_Basis: payload.basePay,
+					ns0#Pay_Plan_Data: {
+						ns0#Pay_Plan_Sub_Data: {
+							ns0#Pay_Plan_Reference: {
+								ns0#ID @(ns0#"type": 'Compensation_Plan_ID'): 'SALARY_Hourly_Plan'
+							},
+							ns0#Amount: payload.basePay, 
+							ns0#Currency_Reference: {
+								ns0#ID @(ns0#"type": 'Currency_ID'): payload.currency
+							},
+							ns0#Frequency_Reference: {
+								ns0#ID @(ns0#"type": 'Frequency_ID'): 'Annual'
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <workday:staffing doc:name="Hire Employee in Workday" doc:id="8e993fbd-33f1-47d3-8f40-7e3cd5535a14" config-ref="Workday_Config" operation="Hire_Employee" />
+
+        <ee:transform doc:name="Get Id from Hire Employee response" doc:id="2b7cbf43-f02f-4e95-9ff0-8f3b29634d4c">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+payload.Hire_Employee_Event_Response.Employee_Reference]]></ee:set-payload>
+            </ee:message>
+            <ee:variables>
+            </ee:variables>
+        </ee:transform>
+        <ee:transform doc:name="Set response" doc:id="948ed1f0-81b2-424c-a002-4456334b0940">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	id: payload.ID
+}]]></ee:set-payload>
+
+            </ee:message>
+            <ee:variables>
+                <ee:set-variable variableName="outboundHeaders"><![CDATA[%dw 2.0
+output application/java
+---
+{
+	"Location": vars.requestPath ++ payload.ID
+}]]></ee:set-variable>
+                <ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
+output application/java
+---
+201 ]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+    </sub-flow>
+    <sub-flow name="getEmployeeByIdSubFlow" doc:id="d444ad90-9988-48db-84fa-35aaff5b2ca0">
+        <set-variable value="#[attributes.uriParams.id]" doc:name="Save id" doc:id="3b3df7df-bd29-45f5-92b2-7966dc3c59d0" variableName="id" />
+
+        <ee:transform doc:name="Prepare GetWorkers request" doc:id="1a01229d-2e14-4607-8591-fdbf84b61c4f">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+ns ns0 urn:com.workday/bsvc
+---
+{
+	ns0#Get_Workers_Request: {
+		ns0#Request_Criteria: {
+			ns0#Exclude_Inactive_Workers: true,
+			ns0#Exclude_Employees: false,
+			ns0#Exclude_Contingent_Workers: false
+		},
+		ns0#Request_References: {
+			ns0#Worker_Reference: {
+				ns0#ID @(ns0#"type": "Employee_ID"): attributes.uriParams.id
+			}
+		},
+		ns0#Response_Group: {
+			ns0#Include_Reference: true,
+			ns0#Include_Personal_Information: true,
+			ns0#Include_Employment_Information: true,
+			ns0#Include_Compensation: true
+		}
+	}
+}
+                    ]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <workday:human-resources doc:name="Get Workers from Workday" doc:id="a5802f68-1bda-47d9-9aa3-b4507963d2b3" config-ref="Workday_Config" operation="Get_Workers" />
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+            doc:id="e23f44d3-15a6-49f5-b87a-dde537c6e7f5" doc:name="Transform Message to Java object">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+if (payload.Get_Workers_Response.Response_Results.Total_Results > 0 )  payload else null]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <choice doc:name="Does Employee exist?" doc:id="5d5a2204-fcdb-48e7-b3e1-cc7d58d8266e">
+            <when expression="#[payload != null]">
+                <ee:transform doc:name="Transform response to JSON output structure" doc:id="bb521b49-40a3-4dc1-a3fc-524aa48a9876">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+fun getCountryName(id) = {
+    name: if (id == "bc33aa3152ec42d4995f4791a106ed09") "USA" else "Not presented"
+}
+fun getCountryRegionName(id) = {
+    name: if (id == "ec3d210e4240442e99a28fa70419aec5") "California" else "Not presented"
+}
+---
+using ( personData = payload.Get_Workers_Response.Response_Data.Worker.Worker_Data.Personal_Data,
+                                    positionData = payload.Get_Workers_Response.Response_Data.Worker.Worker_Data.Employment_Data.Worker_Job_Data.Position_Data){
+    id: vars.id,
+    firstName: personData.Name_Data.Legal_Name_Data.Name_Detail_Data.First_Name,
+    lastName: personData.Name_Data.Legal_Name_Data.Name_Detail_Data.Last_Name,
+    addressLine: personData.Contact_Data.Address_Data.Address_Line_Data,
+    city: personData.Contact_Data.Address_Data.Municipality,
+    postalCode: personData.Contact_Data.Address_Data.Postal_Code,
+    country: getCountryName(personData.Contact_Data.Address_Data.Country_Reference.ID).name,
+    region: getCountryRegionName(personData.Contact_Data.Address_Data.Country_Region_Reference.ID).name,
+    birthDate: personData.Birth_Date,
+    phone: personData.Contact_Data.Phone_Data.Phone_Number,
+    email: personData.Contact_Data.Email_Address_Data.Email_Address,
+    positionTitle: positionData.Position_Title,
+    hireDate: positionData.Start_Date,
+    weeklyHours: positionData.Default_Weekly_Hours
+}]]></ee:set-payload>
+                    </ee:message>
+                </ee:transform>
+            </when>
+            <otherwise>
+                <ee:transform doc:name="Set HTTP status 404" doc:id="3678257f-ffcd-4aa4-9b42-6d9f5fc35f65">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: "Resource not found"
+}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
+output application/java
+---
+404]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </otherwise>
+        </choice>
+    </sub-flow>
+    <sub-flow name="patchEmployeeSubFlow" doc:id="2555390a-4982-4924-a9ab-d63811b98526">
+        <ee:transform doc:name="JSON to Object" doc:id="5125b76e-926a-4013-ba6d-4fd19b5ff6ca"
+            xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-payload>
+            </ee:message>
+            <ee:variables>
+                <ee:set-variable variableName="id"><![CDATA[%dw 2.0
+output application/java
+---
+attributes.uriParams.id
+                    ]]></ee:set-variable>
+                <ee:set-variable variableName="inputVars"><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <validation:is-not-null doc:name="addressLine != null" config-ref="Validation_Config" value="#[payload.addressLine]" message="Adress line is required." />
+        <validation:is-not-null doc:name="city != null" config-ref="Validation_Config" value="#[payload.city]" message="City is required." />
+        <validation:is-not-null doc:name="country != null" config-ref="Validation_Config" value="#[payload.country]" message="Country is required." />
+        <validation:is-not-null doc:name="region != null" config-ref="Validation_Config" value="#[payload.region]" message="Last name is required." />
+        <validation:is-not-null doc:name="postalCode != null" config-ref="Validation_Config" value="#[payload.postalCode]" message="Postal code is required." />
+        <validation:is-not-null doc:name="phone != null" config-ref="Validation_Config" value="#[payload.phone]" message="Phone is required." />
+        <validation:is-not-null doc:name="email != null" config-ref="Validation_Config" value="#[payload.email]" message="Email is required." />
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" doc:id="27e0244d-c88a-4887-8aeb-ef89f37ab371" doc:name="Prepare GetWorkers request">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+ns ns0 urn:com.workday/bsvc
+---
+{
+	ns0#Get_Workers_Request: {
+		ns0#Request_Criteria: {
+			ns0#Exclude_Inactive_Workers: true,
+			ns0#Exclude_Employees: false,
+			ns0#Exclude_Contingent_Workers: false
+		},
+		ns0#Request_References: {
+			ns0#Worker_Reference: {
+				ns0#ID @(ns0#"type": "Employee_ID"): vars.id
+			}
+		},
+		ns0#Response_Group: {
+			ns0#Include_Reference: true
+		}
+	}
+}
+                    ]]></ee:set-payload>
+            </ee:message>
+            <ee:variables>
+            </ee:variables>
+        </ee:transform>
+        <workday:human-resources doc:name="Get Workers from Workday" doc:id="158ff985-5e97-437a-be15-af8a9fc26196" config-ref="Workday_Config" operation="Get_Workers" />
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+            xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+            doc:id="0e487002-6b9b-48bf-a9bc-f1a51d75b0ad" doc:name="Transform Message to Java object">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+if (payload.Get_Workers_Response.Response_Results.Total_Results > 0 )  payload else null]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+
+
+        <choice doc:name="Does Employee exist?" doc:id="e69bbbcf-a853-4066-adee-8bd093f3ca89">
+            <when expression="#[payload != null]">
+                <ee:transform doc:name="Prepare MaintainContactInformation request" doc:id="b786b0f6-6739-43ac-b3e1-a14a4171630c">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+ns ns0 urn:com.workday/bsvc
+---
+{
+	ns0#Maintain_Contact_Information_for_Person_Event_Request: {
+		ns0#Maintain_Contact_Information_Data: {
+			ns0#Worker_Reference: {
+				ns0#ID @(ns0#"type": 'Employee_ID'): vars.id
+			},
+			ns0#Effective_Date: now() as Date,
+			ns0#Worker_Contact_Information_Data: {
+				(ns0#Address_Data: {
+					ns0#Country_Reference: {
+						ns0#ID @(ns0#"type": 'ISO_3166-1_Alpha-3_Code'): lookup("lookUpCountryFlow", vars.inputVars.country)
+					},
+					ns0#Address_Line_Data @(ns0#Type: 'ADDRESS_LINE_1'): vars.inputVars.addressLine,
+					ns0#Municipality: vars.inputVars.city,
+					(ns0#Country_Region_Reference: {
+						ns0#ID @(ns0#"type": 'Country_Region_ID'): lookup("lookUpCountryRegionFlow", vars.inputVars.region)
+					}) if (vars.inputVars.region != null and vars.inputVars.region != "Not presented"),
+					ns0#Postal_Code: vars.inputVars.postalCode,
+					ns0#Usage_Data: {
+						ns0#Type_Data @(ns0#Primary: true): {
+							ns0#Type_Reference: {
+								ns0#ID @(ns0#"type": 'Communication_Usage_Type_ID'): 'HOME'
+							}
+						}
+					}
+				}) if (vars.inputVars.country?),
+				(ns0#Phone_Data: {
+					ns0#Phone_Number: vars.inputVars.phone,
+					ns0#International_Phone_Code: '1',
+					ns0#Phone_Device_Type_Reference: {
+						ns0#ID @(ns0#"type": 'Phone_Device_Type_ID'): '1063.5'
+					},
+					ns0#Usage_Data @(ns0#Public: true): {
+						ns0#Type_Data @(ns0#Primary: true): {
+							ns0#Type_Reference: {
+								ns0#ID @(ns0#"type": 'Communication_Usage_Type_ID'): 'HOME'
+							}
+						}
+					}
+				}) if (vars.inputVars.phone?),
+				(ns0#Email_Address_Data: {
+					ns0#Email_Address: vars.inputVars.email,
+					ns0#Usage_Data @(ns0#Public: true): {
+						ns0#Type_Data @(ns0#Primary: true): {
+							ns0#Type_Reference: {
+								ns0#ID @(ns0#"type": 'Communication_Usage_Type_ID'): 'HOME'
+							}
+						}
+					}
+				}) if (vars.inputVars.email?)
+			}
+		}
+	}
+}]]></ee:set-payload>
+                    </ee:message>
+                </ee:transform>
+                <workday:human-resources doc:name="Maintain Contact Information in Workday" doc:id="2e0b5fc1-c37a-4518-963b-3e33a152f26e" config-ref="Workday_Config"
+                    operation="Maintain_Contact_Information" />
+                <ee:transform doc:name="Set response" doc:id="82483610-7d88-4ecf-8872-51f18d8df929">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    status: "OK"
+}]]></ee:set-payload>
+                    </ee:message>
+                </ee:transform>
+            </when>
+            <otherwise>
+                <ee:transform doc:name="Set HTTP status 404" doc:id="1aa0f967-2c21-43ed-82ff-9ba9e32c1d90">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	message: "Resource not found"
+}]]></ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
+output application/java
+---
+404]]></ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </otherwise>
+        </choice>
+    </sub-flow>
+    <sub-flow name="deleteEmployeeSubFlow" doc:id="272d26f9-ea51-4d31-8b1c-5b6f3e40da3d">
+
+        <set-variable value="#[attributes.uriParams.id]" doc:name="Save id" doc:id="0f53f0b3-4817-4d23-b80a-998f273d2135" variableName="id" />
+		<ee:transform doc:name="Prepare GetWorkers request" doc:id="1db608ea-519c-4215-a0bf-47810bc106ea">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+ns ns0 urn:com.workday/bsvc
+---
+{
+    ns0#Get_Workers_Request: {
+        ns0#Request_Criteria: {
+            ns0#Exclude_Inactive_Workers: true,
+            ns0#Exclude_Employees: false,
+            ns0#Exclude_Contingent_Workers: false
+        },
+        ns0#Request_References: {
+            ns0#Worker_Reference: {
+                ns0#ID @(ns0#"type": "Employee_ID"): vars.id
+            }
+        },
+        ns0#Response_Group: {
+            ns0#Include_Reference: true,
+            ns0#Include_Personal_Information: true
+        }
+    }
+}
+                ]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <workday:human-resources doc:name="Get Workers from Workday" doc:id="cd38a257-327f-40db-82a9-92e11a1e857e" config-ref="Workday_Config" operation="Get_Workers" />
+        <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+            doc:id="e46e6baa-8e3d-4fd9-8fc9-8db96c975da0" doc:name="Transform Message to Java object">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+if (payload.Get_Workers_Response.Response_Results.Total_Results > 0 )  payload else null]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <choice doc:name="Does Employee exist?" doc:id="e6e5cb9a-df2d-4359-bded-284f006fb8e2">
+            <when expression="#[payload != null]">
+                <ee:transform doc:name="Prepare TerminateEmployee request" doc:id="15048ae4-d56a-4b97-ad04-43df13fc8bd6">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/xml
+ns ns0 urn:com.workday/bsvc
+---
+{
+	ns0#Terminate_Employee_Request: {
+		ns0#Terminate_Employee_Data: {
+			ns0#Employee_Reference: {
+				ns0#ID @(ns0#"type": 'Employee_ID'): vars.id
+			},
+			ns0#Termination_Date: now() as Date,
+			ns0#Terminate_Event_Data: {
+				ns0#Primary_Reason_Reference: {
+					ns0#ID @(ns0#"type": 'WID'): p("wday.terminate.employee.primary.reason.id")
+				}
+			}
+		}
+	}
+}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                </ee:transform>
+                <workday:staffing doc:name="Terminate Employee in Workday" doc:id="e0c11924-59ad-483d-a80b-f64acd1caa09" config-ref="Workday_Config" operation="Terminate_Employee" />
+                <ee:transform xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd"
+                    doc:id="34822f1e-6a2a-436c-a03f-2b73132d019b" doc:name="Set response">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    status: "OK"
+}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                </ee:transform>
+            </when>
+            <otherwise>
+                <ee:transform doc:name="Set HTTP status 404" doc:id="ce65507b-e5de-4890-8bfe-b11cb46e1ab0">
+                    <ee:message>
+                        <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+    message: "Resource not found"
+}]]>
+                        </ee:set-payload>
+                    </ee:message>
+                    <ee:variables>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[%dw 2.0
+output application/java
+---
+404]]>
+                        </ee:set-variable>
+                    </ee:variables>
+                </ee:transform>
+            </otherwise>
+        </choice>
+    </sub-flow>
+    <flow name="lookUpCountryFlow" doc:id="fbdced2f-9639-406e-b6ce-07acfa85e86c">
+        <ee:transform doc:name="Get Country in Workday" doc:id="5e1c7487-db57-4b75-8c3f-b02e48a1101d">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+using (country = upper(payload) )
+	(if (country == "US" or country == "USA") "USA" else
+	(if (country == "UK" or country == "GBR") "GBR" else payload))
+                    ]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <logger level="INFO" doc:name="Log the Country in Workday" doc:id="36e519aa-8d8a-4290-90bf-1e18e6d2b89b" message="Country is : #[payload]" />
+    </flow>
+    <flow name="lookUpCountryRegionFlow" doc:id="4114b6f6-e471-441c-9efa-1f4b441270b3">
+        <ee:transform doc:name="Get Country in Workday" doc:id="078ce6e1-10b4-433a-b156-3013fc62eab7">
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/java
+---
+using (countryRegion = upper(payload))
+	(if (countryRegion == "USA-CA") "USA-CA" else
+	(if (countryRegion == "ILLINOIS") "Illinois" else payload))
+                    ]]>
+                </ee:set-payload>
+            </ee:message>
+        </ee:transform>
+        <logger level="INFO" doc:name="Log the Country region in Workday" doc:id="f4715f51-222d-4190-b98b-472e63bfe97d" message="Country  region is : #[payload]" />
+    </flow>
+</mule>
