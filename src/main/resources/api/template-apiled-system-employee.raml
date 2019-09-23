@@ -1,7 +1,7 @@
 #%RAML 1.0
-baseUri: https://mocksvc.mulesoft.com/mocks/6eab589f-a9e9-48be-adeb-172059448965 # 
-title: Employee Workday System API
+title: Employee System API
 version: v2.0
+baseUri: http://localhost:8081/api
 
 types:
   employee: !include dataTypes/Employees.raml
@@ -9,31 +9,32 @@ types:
   successResponse: !include dataTypes/SuccessResponse.raml
 
 traits: 
-  employeeSearch: !include ./traits/trait-collection.raml
+  employeeSearch: !include traits/trait-collection.raml
 
 /employees:
-  displayName: Employees
   description: |
     Working with employees:
     * Retrieving all employees
     * Creating employees
   get:
+    displayName: Get employees
     description: |
-      Retrieve all the Employeesaccording to the filtering.
+      Retrieve all the Employees according to the filtering.
     is: [ employeeSearch ]      
     responses:
       200:
         body:
           application/json:
             type: employee[]
-            example: !include ./examples/get_employees_example.json
+            example: !include examples/get_employees_example.yaml
   post:
+    displayName: Create employee
     description: |
       Create a new Employee
     body:
       application/json:
         type: employee
-        example: !include ./examples/post_employees_example.json
+        example: !include examples/post_employees_example.yaml
     responses:
       201:
         description: Created
@@ -55,7 +56,6 @@ traits:
                   "message": "Country is required."
                 }
   /{id}:
-    displayName: Employee ID
     description: |
       Working with employees:
       * Retrieving specific employee
@@ -67,13 +67,14 @@ traits:
         example: "301980"
         description: Represents the employee ID of native system
     get:
+      displayName: Get employee by id
       description: Get Employee by ID
       responses:
         200:
           body:
             application/json:
               type: employee
-              example: !include ./examples/get_employeeById_example.json
+              example: !include examples/get_employeeById_example.yaml
         404:
           body:
             application/json:
@@ -83,11 +84,12 @@ traits:
                   "message": "Resource not found"
                 }
     patch:
+      displayName: Update employee by id
       description: Update Employee specified by ID
       body:
         application/json:
           type: employee
-          example: !include ./examples/put_employee_example.json
+          example: !include examples/put_employee_example.yaml
       responses:
         200:
           body:
@@ -115,6 +117,7 @@ traits:
                   "message": "You have to specify the whole adress, which consists of address line, city, country, region and postal code."
                 }
     delete:
+      displayName: Delete employee by id
       description: Delete Employee specified by ID
       responses:
         200:
