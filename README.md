@@ -25,7 +25,7 @@ Please review the terms of the license before downloading and using this templat
 This Anypoint template serves as a foundation for API Led Connectivity approach of running an enterprise.
 The template is a System API to underlying Workday system.
 
-This template is a REST API implemented using APIkit and RAML definition. The basic CRUD operations are implemented for Employee object. The API uses JSON as an exchange format. Included are example requests and responses. The template also illustrates custom lookup flows for mapping countries and regions.
+This template is a REST API implemented using APIkit and RAML definition. The basic CRUD operations are implemented for Employee object. The API uses JSON as exchange format. Included are example requests and responses. The template also illustrates custom lookup flows for mapping countries and regions.
 
 Below are the endpoints that are implemented.
 
@@ -50,7 +50,7 @@ Look at the included self-descriptive RAML definition and the corresponding flow
 
 # Considerations <a name="considerations"/>
 
-To make this template run, there are certain preconditions that must be considered. All of them deal with the preparations, that must be made for the template to run smoothly.
+To make this template run, there are certain preconditions that must be considered. All of them deal with the preparations that must be made for the template to run smoothly.
 **Failing to do so could lead to unexpected behavior of the template.**
 
 ## Workday Considerations <a name="workdayconsiderations"/>
@@ -81,12 +81,12 @@ You can find a detailed description on how to do so in this [Documentation Page]
 
 
 ### Running on Studio <a name="runonstudio"/>
-Once you have imported you template into Anypoint Studio you need to follow these steps to run it:
+Once you have imported this template into Anypoint Studio you need to follow these steps to run it:
 
 + Locate the properties file `mule.dev.properties`, in src/main/resources
 + Complete all the properties required as per the examples in the section [Properties to be configured](#propertiestobeconfigured)
-+ Once that is done, right click on you template project folder
-+ Hover you mouse over `"Run as"`
++ Once that is done, right click on your template project folder
++ Hover your mouse over `"Run as"`
 + Click on  `"Mule Application"`
 + Inside the dialog, select Environment and set the variable `"mule.env"` to the value `"dev"`
 + Click `"Run"`
@@ -101,7 +101,7 @@ While [creating your application on CloudHub](http://www.mulesoft.org/documentat
 
 
 ### Deploying your template on CloudHub <a name="deployingyouranypointtemplateoncloudhub"/>
-Mule Studio provides you with really easy way to deploy your Template directly to CloudHub, for the specific steps to do so please check this [link](http://www.mulesoft.org/documentation/display/current/Deploying+Mule+Applications#DeployingMuleApplications-DeploytoCloudHub)
+Mule Studio provides an easy way to deploy your Template directly to CloudHub, for the specific steps to do so please check this [link](http://www.mulesoft.org/documentation/display/current/Deploying+Mule+Applications#DeployingMuleApplications-DeploytoCloudHub)
 
 
 ## Properties to be configured (With examples) <a name="propertiestobeconfigured"/>
