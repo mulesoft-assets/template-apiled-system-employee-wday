@@ -14,7 +14,7 @@
     <name>template-apiled-system-employee-wday</name>
 
     <properties>
-        <mule.validation.module.version>1.2.1</mule.validation.module.version>
+        <mule.validation.module.version>1.4.0</mule.validation.module.version>
     </properties>
 
     <build>
